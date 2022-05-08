@@ -2,7 +2,7 @@
 
 * [intro](#intro)
 * [techniques](#techniques)
-    * [syntax introspection](#syntax-introspection)
+    * [syntax access](#syntax-access)
     * [string encoding](#string-encoding)
     * [bytes](#bytes)
     * [error](#error)
@@ -11,15 +11,15 @@
 
 ## intro
 
-A `quine` is a program that prints its own source. It's one of the first programs I'll try and write when learning a new language, but it wasn't always obvious to me how. At first these cute programs seemed like an almost impossible esoteric [IOCCC](https://www.ioccc.org/)-tier artform crafted by programming artisans.
+A `quine` is a program that provides its own source code as output. It's one of the first programs I'll try and write when learning a new language, but it wasn't always obvious to me how. At first these cute programs seemed like an almost impossible esoteric [IOCCC](https://www.ioccc.org/)-tier artform crafted by programming artisans.
 
 I want to share the general concepts used to construct programs like these, and explore some of the things that can be done with them.
 
 ## techniques
 
-Non-trivial quines nearly always use some form of conversion between code and data, the most straightforward of which appear in languages that give access to string representations of the code. 
+Non-trivial quines nearly always use some form of transform between code and data, the most straightforward of which appear in languages that give access to string representations of the code. 
 
-#### syntax introspection
+### syntax access
 
 A quine in a simple language with a `getSource` function may look like
 
@@ -29,13 +29,13 @@ expr = print('expr = ' . getSource(expr))
 
 We can access most of the source code already with this function by referencing `expr`, but notice how we had to specify `'expr = '` again, because it falls outside the expression the source is coming from.
 
-This string data is actually used twice in the output string! Once at the start of the output, and again as part of the source of the expression. This dual-use of information is a common theme when writing quines.
+This string data is actually used twice in the output string! Once at the start of the output, and again as part of the source of the expression. This reuse of information is a common trick when writing quines.
 
 JavaScript allows this kind of introspection for arbitrary functions by just converting them to strings:
 
 ```javascript
 function quine() {
-    console.log(quine.toString() + '\nquine();');
+    console.log(String(quine) + '\nquine();');
 }
 quine();
 ```
@@ -58,7 +58,16 @@ We'll find a shorter Python quine later.
 
 While these quines are easy to make and understand, the functionality to achieve them isn't common to most programming languages. When it's absent, we have to do something else.
 
-#### string encoding
+### string encoding
+
+A more general approach we can use is to have some blob of data, and use it in the output twice.
+
+```
+```
+
+The first time, it's 
+
+This is best demonstrated with strings.
 
 ```
 //q=`%3Bconsole.log(%60q%3D%5C%60%24%7Bq%7D%5C%60%60%2BdecodeURIComponent(q))`;console.log(`q=\`${q}\``+decodeURIComponent(q))
@@ -81,7 +90,7 @@ Or more succinctly
 (q=_=>console.log(`(q=${q})()`))()
 ```
 
-It's possible to modify any reflected section and still remain a quine
+It's possible to modify any reflected segment and still remain a quine
 
 ```javascript
 (q=_=>/* this is still a quine */console.log(`(q=${q})()`))()
@@ -128,6 +137,8 @@ types
 
         examples
         https://rosettacode.org/wiki/Quine
+        https://esolangs.org/wiki/User:Hakerh400/How_to_write_quines
+        http://www.madore.org/~david/computers/quine.html
 
         asem1k world -> one of the first, describe how it works
         relay -> author wrote a book explaining it in detail, if you can read japanese
