@@ -27,7 +27,7 @@ A quine in a simple language with a `getSource` function may look like
 expr = print('expr = ' . getSource(expr))
 ```
 
-We can access most of the source code already with this function by referencing `expr`, but notice how we had to specify `'expr = '` again, because it falls outside the expression the source is coming from.
+We can access most of the source code already with this function by reading `expr`. However, we have to specify `'expr = '` again, because it falls outside the expression the source is coming from.
 
 This string data is actually used twice in the output string! Once at the start of the output, and again as part of the source of the expression. This reuse of information is a common trick when writing quines.
 
@@ -50,28 +50,44 @@ quine = lambda x: print('import inspect\n' + x + 'quine(inspect.getsource(quine)
 quine(inspect.getsource(quine))
 ```
 
-Unfortunately a lot more boilerplate is required to glimpse behind the curtain and grab the code, but it uses the exact same approach at the previous examples.
+More boilerplate is required to glimpse behind the curtain and grab the code, but it uses the exact same approach at the previous examples.
 
 We'll find a shorter Python quine later.
-
-
 
 While these quines are easy to make and understand, the functionality to achieve them isn't common to most programming languages. When it's absent, we have to do something else.
 
 ### string encoding
 
-A more general approach we can use is to have some blob of data, and use it in the output twice.
-
-```
-```
-
-The first time, it's 
+A more general approach we can use is to have some blob of data, and use it in the output twice; once to represent itself, and a transformed version of the same data to represent the rest of the code. 
 
 This is best demonstrated with strings.
 
 ```
-//q=`%3Bconsole.log(%60q%3D%5C%60%24%7Bq%7D%5C%60%60%2BdecodeURIComponent(q))`;console.log(`q=\`${q}\``+decodeURIComponent(q))
+data = "print(data . data)"
+print(data . data)
 ```
+
+This incomplete example
+
+```
+data = "print(data . data)"
+print('data = "' . data . '"\n' . data)
+```
+
+// stringify template
+
+```javascript
+q=";console.log(`q=${q}`+q)";console.log(`q="${q}"`+q)
+```
+
+```javascript
+q=`%3Bconsole.log(%60q%3D%5C%60%24%7Bq%7D%5C%60%60%2BdecodeURIComponent(q))`;console.log(`q=\`${q}\``+decodeURIComponent(q))
+```
+
+Can we do this same trick without transforming the code?
+
+
+beautiful recursive pattern - cjam
 
 ## additional fun
 
@@ -106,14 +122,15 @@ types
             js example can be trivial
         string 
             data
-            eval
                 example from .rs
+            eval
+                https://towardsdatascience.com/how-to-write-your-first-quine-program-947f2b7e4a6f
         bytes
             data
                 C
-                vlang
+                squeeze a quine out of vlang
                 ascii too
-                8080 assembly version
+                if you squint at 8080 assembly example
 
 
     language quirks
