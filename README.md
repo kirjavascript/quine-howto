@@ -58,36 +58,99 @@ While these quines are easy to make and understand, the functionality to achieve
 
 ### string encoding
 
-A more general approach we can use is to have some blob of data, and use it in the output twice; once to represent itself, and a transformed version of the same data to represent the rest of the code. 
+A more general approach we can use is to have some blob of data, and use it in the output twice; once to represent itself, and again to represent the rest of the code. 
 
 This is best demonstrated with strings.
 
 ```
-data = "print(data . data)"
-print(data . data)
+data = ""; print('data = ' . data  . data)
 ```
 
-This incomplete example
+Here is a template with no data. We print `data = `, the data itself, then the data again.
+
+All we have to do now is make the data contain everything that comes after it.
 
 ```
-data = "print(data . data)"
-print('data = "' . data . '"\n' . data)
+data = "; print('data = ' . data . data)"; print('data = ' . data . data)
 ```
 
-// stringify template
+Unfortunately the first time the data appears in our output the quotes are missing;
+
+```
+data = ; print('data = ' . data . data); print('data = ' . data . data)
+```
+
+To fix this, we can just call a function to manually add the quotes
+
+```
+data = "; print('data = ' . addQuotes(data) . data)"; print('data = ' . addQuotes(data) . data)
+```
+
+This transform allows us to print the string in two different ways, as data and as code. And we have our quine!
+
+Ruby provides a sort of debug view for a string that gives the same solution:
+
+```ruby
+data = "; print('data = ' + data.dump + data)"; print('data = ' + data.dump + data)
+```
+
+As does python:
+
+```python
+data = "; print('data = ' + repr(data) + data)"; print('data = ' + repr(data) + data)
+```
+
+In JavaScript, we can use `JSON.stringify`
 
 ```javascript
-q=";console.log(`q=${q}`+q)";console.log(`q="${q}"`+q)
+data = "; console.log('data = ' + JSON.stringify(data) + data)"; console.log('data = ' + JSON.stringify(data) + data)
 ```
+
+But we aren't tied to quoting strings. We can use all sorts of transforms to represent data differently;
 
 ```javascript
-q=`%3Bconsole.log(%60q%3D%5C%60%24%7Bq%7D%5C%60%60%2BdecodeURIComponent(q))`;console.log(`q=\`${q}\``+decodeURIComponent(q))
+data = "; console.log('data = \"' + data + '\"' + data)"; console.log('data = "' + data + '"' + data)
 ```
 
-Can we do this same trick without transforming the code?
+In this non-working example, we moved the quotes into the main printed string instead. This avoids having to quote the string, but the quotes cannot be embedded in the data string without being escaped, which will not show in the final output.
 
+If we replace the quotes with something else, we can later transform them back into quotes:
+
+```javascript
+data = "; console.log('data = %22' + data + '%22' + unescape(data))"; console.log('data = "' + data + '"' + unescape(data))
+```
+
+data = "; 'data = %22' + data + '%22' + unescape(data)"; 'data = "' + data + '"' + unescape(data)
+
+So the first time the data is printed, the quotes show normally as `%22`, then next when they are unescaped they show correctly as `"`!
+
+  
+  
+
+We can also just encode the whole string. PHP has some built in base64 stuff;
+
+```php
+<?php $data = ""; echo '$data = "'.$data.'"' .base64_decode($data);
+```
+```php
+<?php echo base64_encode('; echo \'<?php $data = "\'.$data.\'"\' .base64_decode($data);');
+```
+```php
+<?php $data = "OyBlY2hvICc8P3BocCAkZGF0YSA9ICInLiRkYXRhLiciJyAuYmFzZTY0X2RlY29kZSgkZGF0YSk7"; echo '<?php $data = "'.$data.'"' .base64_decode($data);
+```
+
+In this example, the two uses of data are very different to each other.
+
+
+TODO: rust example {:?} {}
+
+
+It's possible to use this technique without a transform.
 
 beautiful recursive pattern - cjam
+
+### bytes
+
 
 ## additional fun
 
@@ -115,6 +178,11 @@ It's possible to modify any reflected segment and still remain a quine
 
 // get aditsu to proofread
 
+
+```javascript
+data = "; console.log('data = ' + JSON.stringify(data) + data)"; console.log('data = ' + JSON.stringify(data) + data)
+```
+
 types
     reflect 
         expression introspection
@@ -127,6 +195,7 @@ types
                 https://towardsdatascience.com/how-to-write-your-first-quine-program-947f2b7e4a6f
         bytes
             data
+                ascii, XOR
                 C
                 squeeze a quine out of vlang
                 ascii too
