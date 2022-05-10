@@ -4,6 +4,8 @@
 * [techniques](#techniques)
     * [syntax access](#syntax-access)
     * [string encoding](#string-encoding)
+        * [even more string encoding](#even-more-string-encoding)
+    * [eval](#eval)
     * [bytes](#bytes)
     * [error](#error)
     * [language quirks](#quirks)
@@ -68,7 +70,7 @@ data = ""; print('data = ' . data  . data)
 
 Here is a template with no data. We print `data = `, the data itself, then the data again.
 
-All we have to do now is make the data contain everything that comes after it.
+All we have to do is make the data contain everything that comes after it.
 
 ```
 data = "; print('data = ' . data . data)"; print('data = ' . data . data)
@@ -94,7 +96,7 @@ Ruby provides a sort of debug view for a string that gives the same solution:
 data = "; print('data = ' + data.dump + data)"; print('data = ' + data.dump + data)
 ```
 
-As does python:
+As does Python:
 
 ```python
 data = "; print('data = ' + repr(data) + data)"; print('data = ' + repr(data) + data)
@@ -120,36 +122,54 @@ If we replace the quotes with something else, we can later transform them back i
 data = "; console.log('data = %22' + data + '%22' + unescape(data))"; console.log('data = "' + data + '"' + unescape(data))
 ```
 
-data = "; 'data = %22' + data + '%22' + unescape(data)"; 'data = "' + data + '"' + unescape(data)
-
 So the first time the data is printed, the quotes show normally as `%22`, then next when they are unescaped they show correctly as `"`!
+#### even more string encoding
 
-  
-  
-
-We can also just encode the whole string. PHP has some built in base64 stuff;
+We can also just encode the whole string. PHP has some built in base64 stuff we can use;
 
 ```php
-<?php $data = ""; echo '$data = "'.$data.'"' .base64_decode($data);
+<?php $data = ""; echo '<?php $data = "'.$data.'"' .base64_decode($data);
 ```
+
+First we create our template with missing data as before, then we just need to generate a base64 representation of our code;
+
 ```php
 <?php echo base64_encode('; echo \'<?php $data = "\'.$data.\'"\' .base64_decode($data);');
 ```
+
+We dont have to worry about quote escapes as the base64 representation will not contain any.
+
 ```php
 <?php $data = "OyBlY2hvICc8P3BocCAkZGF0YSA9ICInLiRkYXRhLiciJyAuYmFzZTY0X2RlY29kZSgkZGF0YSk7"; echo '<?php $data = "'.$data.'"' .base64_decode($data);
 ```
 
-In this example, the two uses of data are very different to each other.
+The two representations of the data are very different to each other. We can use lots of different types of encoding for this. Say, hex digits in Python;
 
+```python
+d="3b7072696e742827643d22272b642b62797465732e66726f6d6865782864292e6465636f6465282929";print('d="'+d+bytes.fromhex(d).decode())
+```
 
-TODO: rust example {:?} {}
+If a language doesnt have builtins for encoding, we can write our own.
 
+Here's an example in Ruby where we just add 1 to the character code and subtract it when we want to format it;
+
+```ruby
+data = "<!(ebub!>!(!,!ebub/evnq!,!ebub/dibst/nbq|}di})di/pse.2*/dis~/kpjo)*"; 'data = ' + data.dump + data.chars.map{|ch|(ch.ord-1).chr}.join()
+```
+
+TODO: add print
+
+(x=>(a=x+unescape('%60'))+a)`(x=>(a=x+unescape('%60'))+a)`
 
 It's possible to use this technique without a transform.
 
-beautiful recursive pattern - cjam
+beautiful symmetrical pattern - cjam
 
 ### bytes
+
+
+
+### eval
 
 
 ## additional fun
@@ -217,6 +237,7 @@ types
         with bytes
         html src=#
         shorter python quine
+        REPL quines
 
         other references
 
@@ -230,6 +251,9 @@ types
         relay -> author wrote a book explaining it in detail, if you can read japanese
 
     storing data vs reflection
+
+fn main(){let q=r###"println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}"###;
+println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}
 
     eval() example
     json_encode
@@ -247,7 +271,8 @@ square
 
     q=";throw`q=%22${q}%22`+unescape(q)";throw`q="pl a${q}"`+unescape(q)
     (q=_=>{throw`(q=${q})()`})()
-    (x=>(a=x+unescape('%60'))+a)`(x=>(a=x+unescape('%60'))+a)`
+
+<!-- "`_~"`_~ -->
         cute cjam version 
     https://www.perlmonks.com/?node_id=835076
     https://www.perlmonks.com/?node_id=765005
