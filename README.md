@@ -5,8 +5,9 @@
     * [syntax access](#syntax-access)
     * [string encoding](#string-encoding)
         * [even more string encoding](#even-more-string-encoding)
-    * [eval](#eval)
+        * [what about without?](#what-about-without-encoding?)
     * [bytes](#bytes)
+    * [eval](#eval)
     * [error](#error)
     * [language quirks](#quirks)
 * [additional fun](#additional-fun)
@@ -154,16 +155,54 @@ If a language doesnt have builtins for encoding, we can write our own.
 Here's an example in Ruby where we just add 1 to the character code and subtract it when we want to format it;
 
 ```ruby
-data = "<!(ebub!>!(!,!ebub/evnq!,!ebub/dibst/nbq|}di})di/pse.2*/dis~/kpjo)*"; 'data = ' + data.dump + data.chars.map{|ch|(ch.ord-1).chr}.join()
+data = "<!qsjou!(ebub!>!(!,!ebub/evnq!,!ebub/dibst/nbq|}di})di/pse.2*/dis~/kpjo)*"; print 'data = ' + data.dump + data.chars.map{|ch|(ch.ord-1).chr}.join()
 ```
 
-TODO: add print
-
-(x=>(a=x+unescape('%60'))+a)`(x=>(a=x+unescape('%60'))+a)`
+#### what about without encoding?
 
 It's possible to use this technique without a transform.
 
-beautiful symmetrical pattern - cjam
+So far we've declared our data as a top level variable, but we could just as easily use a function or lambda expression that we immediately invoke.
+
+Lets play with JavaScript again;
+
+```javascript
+(data => data + '(' + data + ')')("")
+```
+
+Here's our template. If we add the appropriate data as the input and use the trick to quote the strings we get a similar quine to before;
+
+```javascript
+(data => data + '(' + JSON.stringify(data) + ')')("(data => data + '(' + JSON.stringify(data) + ')')")
+```
+
+We can clean this up by calling our function as a [tagged template](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates) to remove needing the brackets.
+
+```javascript
+(data => data + unescape('%60') + data + unescape('%60'))``
+```
+
+Here's our new template. We had to add `unescape('%60')` for the backticks.
+
+An interesting pattern reveals itself. The second half of the output is the same as the first, but repeated, which we can simplify our template a lot;
+
+```javascript
+(d => (d = d + unescape('%60')) + d)``
+```
+
+Because the very essence of quines is that the output matches the source, this means that the source code is a single string repeated too!
+
+We end up with this beautiful repeating quine;
+
+```javascript
+(d => (d = d + unescape('%60')) + d)`(d => (d = d + unescape('%60')) + d)`
+```
+
+This same quine in the esolang [CJam](https://sourceforge.net/projects/cjam/) is;
+
+```cjam
+"`_~"`_~
+```
 
 ### bytes
 
@@ -171,6 +210,9 @@ beautiful symmetrical pattern - cjam
 
 ### eval
 
+### language quirks
+
+use the without encoding
 
 ## additional fun
 
@@ -272,7 +314,6 @@ square
     q=";throw`q=%22${q}%22`+unescape(q)";throw`q="pl a${q}"`+unescape(q)
     (q=_=>{throw`(q=${q})()`})()
 
-<!-- "`_~"`_~ -->
         cute cjam version 
     https://www.perlmonks.com/?node_id=835076
     https://www.perlmonks.com/?node_id=765005
