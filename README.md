@@ -4,8 +4,7 @@
 * [techniques](#techniques)
     * [syntax access](#syntax-access)
     * [string encoding](#string-encoding)
-        * [even more string encoding](#even-more-string-encoding)
-        * [what about without?](#what-about-without-encoding?)
+        * [more string encoding](#even-more-string-encoding)
     * [bytes](#bytes)
     * [eval](#eval)
     * [error](#error)
@@ -124,7 +123,8 @@ data = "; console.log('data = %22' + data + '%22' + unescape(data))"; console.lo
 ```
 
 So the first time the data is printed, the quotes show normally as `%22`, then next when they are unescaped they show correctly as `"`!
-#### even more string encoding
+
+#### more string encoding
 
 We can also just encode the whole string. PHP has some built in base64 stuff we can use;
 
@@ -158,9 +158,63 @@ Here's an example in Ruby where we just add 1 to the character code and subtract
 data = "<!qsjou!(ebub!>!(!,!ebub/evnq!,!ebub/dibst/nbq|}di})di/pse.2*/dis~/kpjo)*"; print 'data = ' + data.dump + data.chars.map{|ch|(ch.ord-1).chr}.join()
 ```
 
-#### what about without encoding?
+### bytes
 
-It's possible to use this technique without a transform.
+Most of the examples so far have leaned on high level string methods, but the data can really be anything as long as there's a way to output it.
+
+Take this annotated C template;
+
+```C
+#include <stdio.h>
+
+int data[] = { ... };
+
+int main() {
+  printf("#include <stdio.h>\n\nint data[] = {");
+  
+  for (int i = 0; data[i];) {
+    printf("%d", data[i]);
+    if (data[++i]) printf(",");
+  }
+
+  for (int i = 0; data[i];) {
+    printf("%c", data[i++]);
+  }
+}
+```
+
+commented template
+newline
+final quine
+
+brute force
+squeeze a quine out of vlang.
+
+
+[...`#include <stdio.h>
+
+int data[] = {97,0};
+
+int main() {
+  printf("#include <stdio.h>\n\nint data[] = {");
+  
+  for (int i = 0; data[i];) {
+    printf("%d", data[i]);
+    if (data[++i]) printf(",");
+  }
+
+  for (int i = 0; data[i];) {
+    putchar(data[i]);
+  }
+}`].map(d=>d.charCodeAt()).join`,`
+
+You could imagine also using int[] instead of char[] and looping over the bytes one at a time to print characters for them instead of the string all at once.
+
+8080 Assembly
+
+### eval
+
+### language quirks
 
 So far we've declared our data as a top level variable, but we could just as easily use a function or lambda expression that we immediately invoke.
 
@@ -170,7 +224,7 @@ Lets play with JavaScript again;
 (data => data + '(' + data + ')')("")
 ```
 
-Here's our template. If we add the appropriate data as the input and use the trick to quote the strings we get a similar quine to before;
+Here's our template. If we add the appropriate data as the function params and use the trick to quote the strings we get a similar quine to before;
 
 ```javascript
 (data => data + '(' + JSON.stringify(data) + ')')("(data => data + '(' + JSON.stringify(data) + ')')")
@@ -184,13 +238,13 @@ We can clean this up by calling our function as a [tagged template](https://deve
 
 Here's our new template. We had to add `unescape('%60')` for the backticks.
 
-An interesting pattern reveals itself. The second half of the output is the same as the first, but repeated, which we can simplify our template a lot;
+An interesting pattern reveals itself. The second half of the output is the same as the first, but repeated, so we can simplify our template a lot;
 
 ```javascript
 (d => (d = d + unescape('%60')) + d)``
 ```
 
-Because the very essence of quines is that the output matches the source, this means that the source code is a single string repeated too!
+Because the very essence of quines is that the output matches the source, this means that the source code will be a single string repeated twice too!
 
 We end up with this beautiful repeating quine;
 
@@ -203,16 +257,6 @@ This same quine in the esolang [CJam](https://sourceforge.net/projects/cjam/) is
 ```cjam
 "`_~"`_~
 ```
-
-### bytes
-
-
-
-### eval
-
-### language quirks
-
-use the without encoding
 
 ## additional fun
 
@@ -297,10 +341,11 @@ types
 fn main(){let q=r###"println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}"###;
 println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}
 
-    eval() example
-    json_encode
-    encodeURIComponent
-(x=>(a=x+unescape('%60'))+a)`(x=>(a=x+unescape('%60'))+a)`
+eval([void null] + new function() {})
+void
+
+class ValidatorClass { get [Symbol.toStringTag]() { return 'Validator'; } }
+[]+new class ValidatorClass { get [Symbol.toStringTag]() { return 'Validator'; } }
 
     LISP
     perl
@@ -311,9 +356,5 @@ palidromic quine
 ambigram quine
 square
 
-    q=";throw`q=%22${q}%22`+unescape(q)";throw`q="pl a${q}"`+unescape(q)
-    (q=_=>{throw`(q=${q})()`})()
-
-        cute cjam version 
     https://www.perlmonks.com/?node_id=835076
     https://www.perlmonks.com/?node_id=765005
