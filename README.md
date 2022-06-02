@@ -76,13 +76,15 @@ All we have to do is make the data contain everything that comes after it.
 data = "; print('data = ' . data . data)"; print('data = ' . data . data)
 ```
 
-Unfortunately the first time the data appears in our output the quotes are missing;
+But this isn't enough; we need to add quotes the first time we print the data, otherwise we get this output:
 
 ```
 data = ; print('data = ' . data . data); print('data = ' . data . data)
 ```
 
-To fix this, we can just call a function to manually add the quotes
+Adding the quotes into the data string would require escaping them. 
+
+This can be done, but alternatively we could call a function to add the quotes without using the quote characters themselves.
 
 ```
 data = "; print('data = ' . addQuotes(data) . data)"; print('data = ' . addQuotes(data) . data)
@@ -132,7 +134,7 @@ We can also just encode the whole string. PHP has some built in base64 stuff we 
 <?php $data = ""; echo '<?php $data = "'.$data.'"' .base64_decode($data);
 ```
 
-First we create our template with missing data as before, then we just need to generate a base64 representation of our code;
+First we create our template with missing data as before, then we need to generate a base64 representation of our code;
 
 ```php
 <?php echo base64_encode('; echo \'<?php $data = "\'.$data.\'"\' .base64_decode($data);');
@@ -155,19 +157,19 @@ If a language doesnt have builtins for encoding, we can write our own.
 Here's an example in Ruby where we just add 1 to the character code and subtract it when we want to format it;
 
 ```ruby
-data = "<!qsjou!(ebub!>!(!,!ebub/evnq!,!ebub/dibst/nbq|}di})di/pse.2*/dis~/kpjo)*"; print 'data = ' + data.dump + data.chars.map{|ch|(ch.ord-1).chr}.join()
+data = "#<!qsjou!(ebub!>!#(!,!ebub!,!ebub/dibst/nbq|}di})di/pse.2*/dis~/kpjo)*"; print 'data = "' + data + data.chars.map{|ch|(ch.ord-1).chr}.join()
 ```
 
 ### bytes
 
 Most of the examples so far have leaned on high level string methods, but the data can really be anything as long as there's a way to output it.
 
-Take this annotated C template;
+Take this C quine;
 
 ```C
 #include <stdio.h>
 
-int data[] = { ... };
+int data[] = {125,59,10,10,105,110,116,32,109,97,105,110,40,41,32,123,10,32,32,112,114,105,110,116,102,40,34,35,105,110,99,108,117,100,101,32,60,115,116,100,105,111,46,104,62,92,110,92,110,105,110,116,32,100,97,116,97,91,93,32,61,32,123,34,41,59,10,32,32,10,32,32,102,111,114,32,40,105,110,116,32,105,32,61,32,48,59,32,100,97,116,97,91,105,93,59,41,32,123,10,32,32,32,32,112,114,105,110,116,102,40,34,37,100,34,44,32,100,97,116,97,91,105,93,41,59,10,32,32,32,32,105,102,32,40,100,97,116,97,91,43,43,105,93,41,32,112,114,105,110,116,102,40,34,44,34,41,59,10,32,32,125,10,10,32,32,102,111,114,32,40,105,110,116,32,105,32,61,32,48,59,32,100,97,116,97,91,105,93,59,41,32,123,10,32,32,32,32,112,114,105,110,116,102,40,34,37,99,34,44,32,100,97,116,97,91,105,43,43,93,41,59,10,32,32,125,10,125};
 
 int main() {
   printf("#include <stdio.h>\n\nint data[] = {");
@@ -183,20 +185,33 @@ int main() {
 }
 ```
 
-commented template
-newline
-final quine
+If you squint you may be able to see that this is very similar to our string-based examples, except we're using bytes to represent character codes. We are still printing the data in two ways; to represent the collection of bytes, and to represent the code itself.
 
-brute force
-squeeze a quine out of vlang.
+This is about as simple as we can get; just some bytes, loops, and printing. It should start to become clear how this idea can be applied to any language.
+
+Using bytes was how I managed to eventually squeeze a quine out of vlang:
+
+```vlang
+m:=[32, 112, 114, 105, 110, 116, 40, 39, 109, 58, 61, 39, 43, 109, 46, 115, 116, 114, 40, 41, 41, 102, 111, 114, 32, 98, 32, 105, 110, 32, 109, 123, 112, 114, 105, 110, 116, 40, 115, 116, 114, 105, 110, 103, 40, 91, 98, 93, 41, 41, 125] print('m:='+m.str())for b in m{print(string([b]))}
+```
+
+<sub>(In C, you could imagine using char[] instead of int[] for the data and printing the string all at once without looping. In vlang, `string` seems to truncate to 1 character, even though it takes an array (!?), so you end up with this weird `string([b])` loop thing)</sub>
+
+---
+
+A more concise version of this approach, in JavaScript:
+
+```javascript
+d=[93,59,99,111,110,115,111,108,101,46,108,111,103,40,39,100,61,91,39,43,100,43,83,116,114,105,110,103,46,102,114,111,109,67,104,97,114,67,111,100,101,40,46,46,46,100,41,41];console.log('d=['+d+String.fromCharCode(...d))
+
+```
 
 
-[...`#include <stdio.h>
 
-int data[] = {97,0};
+[...`};
 
 int main() {
-  printf("#include <stdio.h>\n\nint data[] = {");
+  printf("#include <stdio.h>\\n\\nint data[] = {");
   
   for (int i = 0; data[i];) {
     printf("%d", data[i]);
@@ -204,7 +219,7 @@ int main() {
   }
 
   for (int i = 0; data[i];) {
-    putchar(data[i]);
+    printf("%c", data[i++]);
   }
 }`].map(d=>d.charCodeAt()).join`,`
 
@@ -344,6 +359,11 @@ println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)
 eval([void null] + new function() {})
 void
 
+The data doesnt even have to be bytes, it can be anything.
+
+capjs compression
+
+
 class ValidatorClass { get [Symbol.toStringTag]() { return 'Validator'; } }
 []+new class ValidatorClass { get [Symbol.toStringTag]() { return 'Validator'; } }
 
@@ -354,7 +374,10 @@ palidromic quine
 (q=u=>(i=`(q=${q},q())`,i+' // '+[...i].reverse().join``),q()) // ))(q,)``nioj.)(esrever.]i...[+' // '+i,`))(q,}q{$=q(`=i(>=u=q(
 
 ambigram quine
+oruborus quine
 square
 
     https://www.perlmonks.com/?node_id=835076
     https://www.perlmonks.com/?node_id=765005
+
+    IOCCC quine
