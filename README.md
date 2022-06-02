@@ -4,7 +4,7 @@
 * [techniques](#techniques)
     * [syntax access](#syntax-access)
     * [string encoding](#string-encoding)
-        * [more string encoding](#even-more-string-encoding)
+        * [more string encoding](#more-string-encoding)
     * [bytes](#bytes)
     * [eval](#eval)
     * [error](#error)
@@ -19,7 +19,7 @@ I want to share the general concepts used to construct programs like these, and 
 
 ## techniques
 
-Non-trivial quines nearly always use some form of transform between code and data, the most straightforward of which appear in languages that give access to string representations of the code. 
+Non-trivial[*](#cheating) quines nearly always use some form of transform between code and data, the most straightforward of which appear in languages that give access to string representations of the code. 
 
 ### syntax access
 
@@ -110,7 +110,7 @@ In JavaScript, we can use `JSON.stringify`
 data = "; console.log('data = ' + JSON.stringify(data) + data)"; console.log('data = ' + JSON.stringify(data) + data)
 ```
 
-But we aren't tied to quoting strings. We can use all sorts of transforms to represent data differently;
+But we aren't tied to quoting functions. We can use all sorts of transforms to represent data differently;
 
 ```javascript
 data = "; console.log('data = \"' + data + '\"' + data)"; console.log('data = "' + data + '"' + data)
@@ -160,6 +160,16 @@ Here's an example in Ruby where we just add 1 to the character code and subtract
 data = "#<!qsjou!(ebub!>!#(!,!ebub!,!ebub/dibst/nbq|}di})di/pse.2*/dis~/kpjo)*"; print 'data = "' + data + data.chars.map{|ch|(ch.ord-1).chr}.join()
 ```
 
+Of course, you're not limited to just ASCII characters.
+
+```javascript
+data = "󘬊󨽯󫭳󫽬󩜮󫍯󩼨󙽤󨝴󨜠󟜠󘬧󘌫󘍤󨝴󨜠󚼠󭝮󩝳󨽡󬍥󚍥󬽣󨝰󩜨󩍡󭍡󚜮󬭥󬍬󨝣󩜨󛽵󛬮󛽧󛌧󘌧󚜩󚜻"
+console.log('data = "' + data + unescape(escape(data).replace(/u../g,'')))
+```
+
+<sub>(You may have noticed the structure change to `data = ""; print('data = "' . data  . convert(data))` in the last few examples, as one of the quotes can be embedded in the data)</sub>
+
+
 ### bytes
 
 Most of the examples so far have leaned on high level string methods, but the data can really be anything as long as there's a way to output it.
@@ -192,42 +202,60 @@ This is about as simple as we can get; just some bytes, loops, and printing. It 
 Using bytes was how I managed to eventually squeeze a quine out of vlang:
 
 ```vlang
-m:=[32, 112, 114, 105, 110, 116, 40, 39, 109, 58, 61, 39, 43, 109, 46, 115, 116, 114, 40, 41, 41, 102, 111, 114, 32, 98, 32, 105, 110, 32, 109, 123, 112, 114, 105, 110, 116, 40, 115, 116, 114, 105, 110, 103, 40, 91, 98, 93, 41, 41, 125] print('m:='+m.str())for b in m{print(string([b]))}
+m:=[32, 112, 114, 105, 110, 116, 40, 39, 109, 58, 61, 39, 43, 109, 46, 115, 116, 114, 40, 41, 41, 102, 111, 114, 32, 98, 32, 105, 110, 32, 109, 123, 112, 114, 105, 110, 116, 40, 115, 116, 114, 105, 110, 103, 40, 91, 98, 93, 41, 41, 125] 
+print('m:='+m.str())for b in m{print(string([b]))}
 ```
 
 <sub>(In C, you could imagine using char[] instead of int[] for the data and printing the string all at once without looping. In vlang, `string` seems to truncate to 1 character, even though it takes an array (!?), so you end up with this weird `string([b])` loop thing)</sub>
 
+
 ---
 
-A more concise version of this approach, in JavaScript:
-
-```javascript
-d=[93,59,99,111,110,115,111,108,101,46,108,111,103,40,39,100,61,91,39,43,100,43,83,116,114,105,110,103,46,102,114,111,109,67,104,97,114,67,111,100,101,40,46,46,46,100,41,41];console.log('d=['+d+String.fromCharCode(...d))
-
-```
-
-
-
-[...`};
-
-int main() {
-  printf("#include <stdio.h>\\n\\nint data[] = {");
-  
-  for (int i = 0; data[i];) {
-    printf("%d", data[i]);
-    if (data[++i]) printf(",");
-  }
-
-  for (int i = 0; data[i];) {
-    printf("%c", data[i++]);
-  }
-}`].map(d=>d.charCodeAt()).join`,`
-
-You could imagine also using int[] instead of char[] and looping over the bytes one at a time to print characters for them instead of the string all at once.
-
-8080 Assembly
+A good example of this approach is [this quine in 8080 Assembly](https://rosettacode.org/wiki/Quine#8080_Assembly). If you look at the data at `P` label you can see the bytes are a representation of the instructions above it.
 
 ### eval
+
+Languages with eval can do a sneaky trick. Since data passed to eval will be a string, we already have a reference to a printable version of the code that is run and can skip having to do any introspection on it. 
+
+```
+data = "print('data = ' . addQuotes(data) . '; eval(' . data . ')')"; eval(data)
+```
+
+The data is now being passed to eval as code, and when that code executes it references the data again to print it in the output.
+
+This style of quine tends be shorter or have less repetition, as it leans on eval to do most of the work.
+
+In Ruby
+
+```ruby
+data="print('data='+data.dump+';eval(data)')";eval(data)
+```
+
+In Python
+
+```python
+data="print('data='+repr(data)+';eval(data)')";eval(data)
+```
+
+Lua has a `load` function that creates a function from a string that can be used in a similar way.
+
+```lua
+data="print(string.format('data=%q load(data)()',data))" load(data)()
+```
+
+In the Lua example, we use `%q` to provide a quoted version of the data to the string formatter.
+
+### error
+
+There's a kind of cheeky quine that abuses interpreter errors or warnings.
+
+If I put this into 
+
+something
+
+js
+
+FreeDOS
 
 ### language quirks
 
@@ -318,9 +346,7 @@ types
             data
                 ascii, XOR
                 C
-                squeeze a quine out of vlang
                 ascii too
-                if you squint at 8080 assembly example
 
 
     language quirks
@@ -336,7 +362,7 @@ types
         palindromic quine
         ascii art square
         with bytes
-        html src=#
+        html src=# polyglot PNG
         shorter python quine
         REPL quines
 
@@ -359,13 +385,13 @@ println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)
 eval([void null] + new function() {})
 void
 
+IOCCC empty file
+
 The data doesnt even have to be bytes, it can be anything.
 
 capjs compression
 
-
-class ValidatorClass { get [Symbol.toStringTag]() { return 'Validator'; } }
-[]+new class ValidatorClass { get [Symbol.toStringTag]() { return 'Validator'; } }
+https://cs.lmu.edu/~ray/notes/quineprograms/
 
     LISP
     perl
@@ -381,3 +407,11 @@ square
     https://www.perlmonks.com/?node_id=765005
 
     IOCCC quine
+
+---
+##### cheating
+
+blah blah cheating quines
+some quines on this page could be considered 'cheating'
+rust include_str!()
+1
