@@ -8,8 +8,8 @@
     * [bytes](#bytes)
     * [eval](#eval)
     * [error](#error)
-    * [language quirks](#quirks)
 * [additional fun](#additional-fun)
+    * [expressions](#expressions)
 
 ## intro
 
@@ -206,7 +206,7 @@ m:=[32, 112, 114, 105, 110, 116, 40, 39, 109, 58, 61, 39, 43, 109, 46, 115, 116,
 print('m:='+m.str())for b in m{print(string([b]))}
 ```
 
-<sub>(In C, you could imagine using char[] instead of int[] for the data and printing the string all at once without looping. In vlang, `string` seems to truncate to 1 character, even though it takes an array (!?), so you end up with this weird `string([b])` loop thing)</sub>
+<sub>(In C, you could imagine using `char[]` instead of `int[]` for the data and printing the string all at once without looping. In vlang, `string` seems to truncate to 1 character, even though it takes an array (!?), so you end up with this weird `string([b])` loop thing)</sub>
 
 
 ---
@@ -215,7 +215,7 @@ A good example of this approach is [this quine in 8080 Assembly](https://rosetta
 
 ### eval
 
-Languages with eval can do a sneaky trick. Since data passed to eval will be a string, we already have a reference to a printable version of the code that is run and can skip having to do any introspection on it. 
+Languages with eval allow us to define our own code to be run from a string, so we already have a reference to a printable version of the code that is run and can skip having to do any introspection on it. 
 
 ```
 data = "print('data = ' . addQuotes(data) . '; eval(' . data . ')')"; eval(data)
@@ -247,17 +247,32 @@ In the Lua example, we use `%q` to provide a quoted version of the data to the s
 
 ### error
 
-There's a kind of cheeky quine that abuses interpreter errors or warnings.
+There's a kind of ["quine"](#cheating) that abuses interpreter errors and warnings.
 
-If I put this into 
+If I put the following into v8, I get the same output back; 
 
-something
+```
+> Uncaught SyntaxError: Unexpected identifier
+Uncaught SyntaxError: Unexpected identifier
+```
 
-js
+These quines can be easily found with some iterative copying in a shell or some other REPL: 
 
-FreeDOS
+```
+% asf
+zsh: command not found: asf
+
+% zsh: command not found: asf
+zsh: command not found: zsh:
+
+% zsh: command not found: zsh:
+zsh: command not found: zsh:
+```
 
 ### language quirks
+
+IIFE examples
+
 
 So far we've declared our data as a top level variable, but we could just as easily use a function or lambda expression that we immediately invoke.
 
@@ -302,6 +317,17 @@ This same quine in the esolang [CJam](https://sourceforge.net/projects/cjam/) is
 ```
 
 ## additional fun
+
+### expressions
+
+
+
+
+
+
+
+
+
 
 If we look at the simple javacript quine from before
 
@@ -390,6 +416,11 @@ IOCCC empty file
 The data doesnt even have to be bytes, it can be anything.
 
 capjs compression
+
+
+```javascript
+eval(d="`eval(d=`+(e=``.link()[8])+d+e+`)`")
+```
 
 https://cs.lmu.edu/~ray/notes/quineprograms/
 
