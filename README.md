@@ -15,7 +15,7 @@
 
 A `quine` is a program that provides its own source code as output. It's one of the first programs I'll try and write when learning a new language, but it wasn't always obvious to me how. At first these cute programs seemed like an almost impossible esoteric [IOCCC](https://www.ioccc.org/)-tier artform crafted by programming artisans.
 
-I want to share the general concepts used to construct programs like these, and explore some of the things that can be done with them.
+I want to share the general concepts used to construct programs like these and explore some of the things that can be done with them.
 
 ## techniques
 
@@ -90,7 +90,7 @@ This can be done, but alternatively we could call a function to add the quotes w
 data = "; print('data = ' . addQuotes(data) . data)"; print('data = ' . addQuotes(data) . data)
 ```
 
-This transform allows us to print the string in two different ways, as data and as code. And we have our quine!
+This transform allows us to print the string in two different ways, and we have our quine!
 
 Ruby provides a sort of debug view for a string that gives the same solution:
 
@@ -167,7 +167,7 @@ data = "󘬊󨽯󫭳󫽬󩜮󫍯󩼨󙽤󨝴󨜠󟜠󘬧󘌫󘍤󨝴󨜠󚼠󭝮
 console.log('data = "' + data + unescape(escape(data).replace(/u../g,'')))
 ```
 
-<sub>(You may have noticed the structure change to `data = ""; print('data = "' . data  . convert(data))` in the last few examples, as one of the quotes can be embedded in the data)</sub>
+<sub>(You may have noticed the structure change to `data = ""; print('data = "' . data  . convert(data))` in the last few examples. Everything that comes after the data string can be encoded inside said data, including the quote that follows it)</sub>
 
 
 ### bytes
@@ -243,7 +243,7 @@ Lua has a `load` function that creates a function from a string that can be used
 data="print(string.format('data=%q load(data)()',data))" load(data)()
 ```
 
-In the Lua example, we use `%q` to provide a quoted version of the data to the string formatter.
+In the Lua example, we can use `%q` to provide a quoted version of the data to the string formatter.
 
 ### error
 
@@ -258,7 +258,7 @@ Uncaught SyntaxError: Unexpected identifier
 
 These quines can be easily found with some iterative copying in a shell or some other REPL: 
 
-```
+```zsh
 % asf
 zsh: command not found: asf
 
@@ -269,9 +269,14 @@ zsh: command not found: zsh:
 zsh: command not found: zsh:
 ```
 
-### language quirks
+## additional fun
+
+### expressions
 
 IIFE examples
+
+string encoding
+
 
 
 So far we've declared our data as a top level variable, but we could just as easily use a function or lambda expression that we immediately invoke.
@@ -316,11 +321,7 @@ This same quine in the esolang [CJam](https://sourceforge.net/projects/cjam/) is
 "`_~"`_~
 ```
 
-## additional fun
-
-### expressions
-
-
+## cheating
 
 
 
@@ -437,7 +438,7 @@ square
     https://www.perlmonks.com/?node_id=835076
     https://www.perlmonks.com/?node_id=765005
 
-    IOCCC quine
+    IOCCC quine blank
 
 ---
 ##### cheating
