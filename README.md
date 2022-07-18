@@ -281,6 +281,8 @@ string encoding
 
 So far we've declared our data as a top level variable, but we could just as easily use a function or lambda expression that we immediately invoke.
 
+### 
+
 Lets play with JavaScript again;
 
 ```javascript
@@ -323,9 +325,29 @@ This same quine in the esolang [CJam](https://sourceforge.net/projects/cjam/) is
 
 ## cheating
 
+Just reading the source file and printing it seems universally considered cheating.
+
+```Rust
+fn main() {
+    println!("{}", include_str!("main.rs"));
+}
+```
+
+Understandably so, since it's kind of cheap and not in the sprit of the task.
+
+The error quines listed in this file are also kinda cheaty.
+
+Expressions like `0` or `()` can behave like quines, but are generally deemed too trivial to count as "legit". [The shortest C quine](https://raw.githubusercontent.com/c00kiemon5ter/ioccc-obfuscated-c-contest/master/1994/smr.hint) is somewhat tenuous too. 
 
 
 
+
+<!-- HQ9+ (1 byte) --> 
+
+
+
+
+https://dev.to/awwsmm/worlds-smallest-quine-guaranteed-b5m
 
 
 
@@ -387,6 +409,7 @@ types
         js example from before
         extra space for extra things - syntax highlighting
         palindromic quine
+        hash quine (crc32)
         ascii art square
         with bytes
         html src=# polyglot PNG
@@ -406,8 +429,6 @@ types
 
     storing data vs reflection
 
-fn main(){let q=r###"println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}"###;
-println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}
 
 eval([void null] + new function() {})
 void
@@ -427,6 +448,9 @@ https://cs.lmu.edu/~ray/notes/quineprograms/
 
     LISP
     perl
+fn main(){let q=r###"println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}"###;
+println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}
+
 
 palidromic quine
 (q=u=>(i=`(q=${q},q())`,i+' // '+[...i].reverse().join``),q()) // ))(q,)``nioj.)(esrever.]i...[+' // '+i,`))(q,}q{$=q(`=i(>=u=q(
@@ -440,10 +464,3 @@ square
 
     IOCCC quine blank
 
----
-##### cheating
-
-blah blah cheating quines
-some quines on this page could be considered 'cheating'
-rust include_str!()
-1
