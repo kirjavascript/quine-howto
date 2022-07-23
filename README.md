@@ -110,21 +110,21 @@ In JavaScript, we can use `JSON.stringify`
 data = "; console.log('data = ' + JSON.stringify(data) + data)"; console.log('data = ' + JSON.stringify(data) + data)
 ```
 
-But we aren't tied to quoting functions. We can use all sorts of transforms to represent data differently;
+These quotes don't have to come from a quoting function. We can conjure them up from anywhere!
 
 ```javascript
-data = "; console.log('data = \"' + data + '\"' + data)"; console.log('data = "' + data + '"' + data)
+data = "; console.log('data = ' + unescape('%22') + data + unescape('%22') + data)"; console.log('data = ' + unescape('%22') + data + unescape('%22') + data)
 ```
 
-In this non-working example, we moved the quotes into the main printed string instead. This avoids having to quote the string, but the quotes cannot be embedded in the data string without being escaped, which will not show in the final output.
-
-If we replace the quotes with something else, we can later transform them back into quotes:
+We are not tied to this template, and can add a transform to some of the data
 
 ```javascript
 data = "; console.log('data = %22' + data + '%22' + unescape(data))"; console.log('data = "' + data + '"' + unescape(data))
 ```
 
-So the first time the data is printed, the quotes show normally as `%22`, then next when they are unescaped they show correctly as `"`!
+Now instead of printing the same data string twice verbatim, the second time we transform the escaped quotes back into quotes.
+
+This transform allows us to represent additional things that dont appear in the original data string that we want to print.
 
 #### more string encoding
 
@@ -167,7 +167,7 @@ data = "󘬊󨽯󫭳󫽬󩜮󫍯󩼨󙽤󨝴󨜠󟜠󘬧󘌫󘍤󨝴󨜠󚼠󭝮
 console.log('data = "' + data + unescape(escape(data).replace(/u../g,'')))
 ```
 
-<sub>(You may have noticed the structure change to `data = ""; print('data = "' . data  . convert(data))` in the last few examples. Everything that comes after the data string can be encoded inside said data, including the quote that follows it)</sub>
+<sub>(You may have noticed the structure change to `data = ""; print('data = "' . data  . convert(data))` in the last few examples. Everything that comes after the data string can be encoded inside it, including the quote that follows it)</sub>
 
 
 ### bytes
@@ -273,10 +273,12 @@ zsh: command not found: zsh:
 
 ### expressions
 
+
 IIFE examples
 
 string encoding
 
+eval expression quine
 
 
 So far we've declared our data as a top level variable, but we could just as easily use a function or lambda expression that we immediately invoke.
@@ -333,11 +335,13 @@ fn main() {
 }
 ```
 
-Understandably so, since it's kind of cheap and not in the sprit of the task.
+This can also include indirect access of the source, like some of the early examples in this article.
 
 The error quines listed in this file are also kinda cheaty.
 
-Expressions like `0` or `()` can behave like quines, but are generally deemed too trivial to count as "legit". [The shortest C quine](https://raw.githubusercontent.com/c00kiemon5ter/ioccc-obfuscated-c-contest/master/1994/smr.hint) is somewhat tenuous too. 
+Rather than trivial expressions 
+
+Expressions like `0` or `()` act like quines, but are generally deemed too trivial to count as "legit". [The shortest C quine](https://raw.githubusercontent.com/c00kiemon5ter/ioccc-obfuscated-c-contest/master/1994/smr.hint) is somewhat tenuous too. 
 
 
 
