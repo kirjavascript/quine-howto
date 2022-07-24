@@ -116,7 +116,7 @@ These quotes don't have to come from a quoting function. We can conjure them up 
 data = "; console.log('data = ' + unescape('%22') + data + unescape('%22') + data)"; console.log('data = ' + unescape('%22') + data + unescape('%22') + data)
 ```
 
-We are not tied to this template, and can add a transform to some of the data
+We are not tied to this template, and can add a transform to some of the data:
 
 ```javascript
 data = "; console.log('data = %22' + data + '%22' + unescape(data))"; console.log('data = "' + data + '"' + unescape(data))
@@ -128,7 +128,7 @@ This transform allows us to represent additional things that dont appear in the 
 
 #### more string encoding
 
-We can also just encode the whole string. PHP has some built in base64 stuff we can use;
+Continuing with the data transform idea, we can also just encode the whole string. PHP has some built in base64 stuff we can use;
 
 ```php
 <?php $data = ""; echo '<?php $data = "'.$data.'"' .base64_decode($data);
@@ -271,14 +271,20 @@ zsh: command not found: zsh:
 
 ## additional fun
 
+APL has some [cute quines](https://aplwiki.com/wiki/Quine#Based_on_replicating_quote)
+
 ### expressions
 
+So far we've created quines 
+
+In a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), 
 
 IIFE examples
 
 string encoding
 
 eval expression quine
+
 
 
 So far we've declared our data as a top level variable, but we could just as easily use a function or lambda expression that we immediately invoke.
@@ -335,15 +341,9 @@ fn main() {
 }
 ```
 
-This can also include indirect access of the source, like some of the early examples in this article.
+This can also include indirect access of parts of the source, like some of the early examples in this file.
 
-The error quines listed in this file are also kinda cheaty.
-
-Rather than trivial expressions 
-
-Expressions like `0` or `()` act like quines, but are generally deemed too trivial to count as "legit". [The shortest C quine](https://raw.githubusercontent.com/c00kiemon5ter/ioccc-obfuscated-c-contest/master/1994/smr.hint) is somewhat tenuous too. 
-
-
+If you're going to cheat, the best approach is probably [this one](https://raw.githubusercontent.com/c00kiemon5ter/ioccc-obfuscated-c-contest/master/1994/smr.hint).
 
 
 <!-- HQ9+ (1 byte) --> 
@@ -468,3 +468,8 @@ square
 
     IOCCC quine blank
 
+
+Collision quine (link SHA-1)
+```javascript
+for(t=R=n=o=[];o<=255;n=++o){for(t=0;t<=7;t++)1&n?n=3988292384^n>>>1:n>>>=1;R[o]=n}for(r=[]+1190315716,t=-1,n,e=0;e<r.length;e++)n=r[e],t=t>>>8^R[255&(t^n.charCodeAt(0))];console.log(((-1^t)>>>0).toString(16))
+```
