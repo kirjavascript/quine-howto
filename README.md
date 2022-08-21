@@ -7,9 +7,11 @@
         * [more string encoding](#more-string-encoding)
     * [bytes](#bytes)
     * [eval](#eval)
-    * [error](#error)
 * [additional fun](#additional-fun)
     * [expressions](#expressions)
+    * [error](#error)
+    * [repeating](#repeating)
+    * [cheating](#cheating)
 
 ## intro
 
@@ -245,6 +247,44 @@ data="print(string.format('data=%q load(data)()',data))" load(data)()
 
 In the Lua example, we can use `%q` to provide a quoted version of the data to the string formatter.
 
+## additional fun
+
+APL has some [cute quines](https://aplwiki.com/wiki/Quine#Based_on_replicating_quote)
+
+------------------------------------------------------------------
+
+### expressions
+
+So far we've created quines that are programs that produce output, but expressions can also be shown to exhibit quine-like behaviour.
+
+These expression based quines can be run in a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop). 
+
+Instead of printing with `console.log` like before
+
+```javascript
+function quine() { console.log(String(quine) + ' quine();'); } quine();
+```
+
+We write an expression that evaluates to its own source
+
+```javascript
+(function quine() { return `(${quine})();` })();
+```
+
+Or more tersely
+
+```javascript
+(q=_=>`(q=${q})()`)()
+```
+
+---
+
+If we really want to start creating crimes against programming we can use ` ``.link()[8] ` to create quotes
+
+```javascript
+eval(d="`eval(d=`+(e=``.link()[8])+d+e+`)`")
+```
+
 ### error
 
 There's a kind of ["quine"](#cheating) that abuses interpreter errors and warnings.
@@ -269,29 +309,7 @@ zsh: command not found: zsh:
 zsh: command not found: zsh:
 ```
 
-## additional fun
-
-APL has some [cute quines](https://aplwiki.com/wiki/Quine#Based_on_replicating_quote)
-
-### expressions
-
-So far we've created quines 
-
-In a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop), 
-
-IIFE examples
-
-string encoding
-
-eval expression quine
-
-
-
-So far we've declared our data as a top level variable, but we could just as easily use a function or lambda expression that we immediately invoke.
-
-### 
-
-Lets play with JavaScript again;
+### repetition
 
 ```javascript
 (data => data + '(' + data + ')')("")
@@ -311,7 +329,7 @@ We can clean this up by calling our function as a [tagged template](https://deve
 
 Here's our new template. We had to add `unescape('%60')` for the backticks.
 
-An interesting pattern reveals itself. The second half of the output is the same as the first, but repeated, so we can simplify our template a lot;
+An interesting pattern reveals itself. The second half of the output is the same as the first, it repeats, so we can simplify our template a lot;
 
 ```javascript
 (d => (d = d + unescape('%60')) + d)``
@@ -351,7 +369,6 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 
 
 
-https://dev.to/awwsmm/worlds-smallest-quine-guaranteed-b5m
 
 
 
@@ -377,56 +394,32 @@ It's possible to modify any reflected segment and still remain a quine
 (q=_=>/* this is still a quine */console.log(`(q=${q})()`))()
 ```
 
+------------------------------------------------------------------
+
+------------------------------------------------------------------
 
 // get aditsu to proofread
 
 
-```javascript
-data = "; console.log('data = ' + JSON.stringify(data) + data)"; console.log('data = ' + JSON.stringify(data) + data)
-```
+https://dev.to/awwsmm/worlds-smallest-quine-guaranteed-b5m
 
-types
-    reflect 
-        expression introspection
-            getSource example
-            js example can be trivial
-        string 
-            data
-                example from .rs
-            eval
-                https://towardsdatascience.com/how-to-write-your-first-quine-program-947f2b7e4a6f
-        bytes
-            data
-                ascii, XOR
-                C
-                ascii too
-
-
-    language quirks
-    self modifying
-        befunge
-    error 
-        honourable mention
-        stupid example of copying until it matches
 
     additional fun
-        js example from before
-        extra space for extra things - syntax highlighting
+        self modifying
+            befunge
         palindromic quine
-        hash quine (crc32)
+        collision quine (crc32)
         ascii art square
         with bytes
-        html src=# polyglot PNG
-        shorter python quine
-        REPL quines
+        html src=# polyglot PNG / syntax highlight
 
         other references
-
 
         examples
         https://rosettacode.org/wiki/Quine
         https://esolangs.org/wiki/User:Hakerh400/How_to_write_quines
         http://www.madore.org/~david/computers/quine.html
+        https://cs.lmu.edu/~ray/notes/quineprograms/
 
         asem1k world -> one of the first, describe how it works
         relay -> author wrote a book explaining it in detail, if you can read japanese
@@ -444,22 +437,23 @@ The data doesnt even have to be bytes, it can be anything.
 capjs compression
 
 
-```javascript
-eval(d="`eval(d=`+(e=``.link()[8])+d+e+`)`")
-```
 
-https://cs.lmu.edu/~ray/notes/quineprograms/
 
     LISP
     perl
+
+absolute chaos
+
 fn main(){let q=r###"println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}"###;
 println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}
+
+101 hello worlds thing
 
 
 palidromic quine
 (q=u=>(i=`(q=${q},q())`,i+' // '+[...i].reverse().join``),q()) // ))(q,)``nioj.)(esrever.]i...[+' // '+i,`))(q,}q{$=q(`=i(>=u=q(
+    ambigram quine
 
-ambigram quine
 oruborus quine
 square
 
