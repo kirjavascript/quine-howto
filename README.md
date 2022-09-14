@@ -9,6 +9,7 @@
     * [eval](#eval)
 * [additional fun](#additional-fun)
     * [expressions](#expressions)
+    * [ascii art](#ascii-art)
     * [error](#error)
     * [repeating](#repeating)
     * [cheating](#cheating)
@@ -201,14 +202,14 @@ If you squint you may be able to see that this is very similar to our string-bas
 
 This is about as simple as we can get; just some bytes, loops, and printing. It should start to become clear how this idea can be applied to any language.
 
-Using bytes was how I managed to eventually squeeze a quine out of vlang:
+Using bytes was how I managed to eventually squeeze a quine out of an older version of vlang:
 
 ```vlang
 m:=[32, 112, 114, 105, 110, 116, 40, 39, 109, 58, 61, 39, 43, 109, 46, 115, 116, 114, 40, 41, 41, 102, 111, 114, 32, 98, 32, 105, 110, 32, 109, 123, 112, 114, 105, 110, 116, 40, 115, 116, 114, 105, 110, 103, 40, 91, 98, 93, 41, 41, 125] 
 print('m:='+m.str())for b in m{print(string([b]))}
 ```
 
-<sub>(In C, you could imagine using `char[]` instead of `int[]` for the data and printing the string all at once without looping. In vlang, `string` seems to truncate to 1 character, even though it takes an array (!?), so you end up with this weird `string([b])` loop thing)</sub>
+<sub>(In C, you could imagine using `char[]` instead of `int[]` for the data and printing the string all at once without looping. In vlang, `string` seems to truncate to 1 character, even though it takes an array, so you end up with this weird `string([b])` loop thing)</sub>
 
 
 ---
@@ -285,6 +286,10 @@ If we really want to start creating crimes against programming we can use ` ``.l
 eval(d="`eval(d=`+(e=``.link()[8])+d+e+`)`")
 ```
 
+### ascii art
+
+> technique to do this with bytes
+
 ### error
 
 There's a kind of ["quine"](#cheating) that abuses interpreter errors and warnings.
@@ -309,7 +314,7 @@ zsh: command not found: zsh:
 zsh: command not found: zsh:
 ```
 
-### repetition
+### repeating
 
 ```javascript
 (data => data + '(' + data + ')')("")
@@ -359,19 +364,16 @@ fn main() {
 }
 ```
 
-This can also include indirect access of parts of the source, like some of the early examples in this file.
+This can include indirect access of parts of the source, like some of the early examples in this file.
+
+Trivial expressions like `0` are also kinda cheaty.
 
 If you're going to cheat, the best approach is probably [this one](https://raw.githubusercontent.com/c00kiemon5ter/ioccc-obfuscated-c-contest/master/1994/smr.hint).
 
 
+------------------------------------------------------------------
+
 <!-- HQ9+ (1 byte) --> 
-
-
-
-
-
-
-
 
 If we look at the simple javacript quine from before
 
@@ -394,7 +396,6 @@ It's possible to modify any reflected segment and still remain a quine
 (q=_=>/* this is still a quine */console.log(`(q=${q})()`))()
 ```
 
-------------------------------------------------------------------
 
 ------------------------------------------------------------------
 
@@ -405,13 +406,14 @@ https://dev.to/awwsmm/worlds-smallest-quine-guaranteed-b5m
 
 
     additional fun
-        self modifying
-            befunge
         palindromic quine
         collision quine (crc32)
         ascii art square
-        with bytes
+            with bytes
+
         html src=# polyglot PNG / syntax highlight
+        self modifying
+            befunge
 
         other references
 
