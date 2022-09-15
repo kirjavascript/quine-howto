@@ -1,4 +1,4 @@
-# how to write a quine
+# how to write lots of quines
 
 * [intro](#intro)
 * [techniques](#techniques)
@@ -11,6 +11,7 @@
     * [expressions](#expressions)
     * [ascii art](#ascii-art)
     * [error](#error)
+    * [collision](#collision)
     * [repeating](#repeating)
     * [cheating](#cheating)
 
@@ -370,7 +371,7 @@ You can do this without fancy string introspection too;
                                   {*n+32}) as char);}print!("\n");} // github.com/kirjavascript
 ```
 
-> technique to do this with bytes
+A rough circle, made by using the midpoint circle algorithm to draw the bytes which contain the code that is manually arranged.
 
 ### error
 
@@ -394,6 +395,37 @@ zsh: command not found: zsh:
 
 % zsh: command not found: zsh:
 zsh: command not found: zsh:
+```
+
+### collision
+
+A crc32 generator that generates a crc32 that matches the crc32 of its source
+
+First we code golf up a crc32 routine
+
+```javascript
+ for (t = R = n = o = []; o <= 255; n = ++o) {
+     for (t = 0; t <= 7; t++)
+         1 & n ? (n = 3988292384 ^ (n >>> 1)) : (n >>>= 1);
+     R[o]=n;
+ }
+ for (r = []+1151661577, t = -1, n, e = 0; e < r.length; e++)
+     (n = r[e]), (t = (t >>> 8) ^ R[255 & (t ^ n.charCodeAt(0))]);
+ ((-1 ^ t) >>> 0).toString(16);
+```
+
+The lowercase `r` is the input data. Some brute force will reveal a collision with the crc32 of the source
+
+```javascript
+for(i=0n;;i++)
+    if(crc32(`for(t=R=n=o=[];o<=255;n=++o){for(t=0;t<=7;t++)1&n?n=3988292384^n>>>1:n>>>=1;R[o]=n}for(r=[]+${i},t=-1,n,e=0;e<r.length;e++)n=r[e],t=t>>>8^R[255&(t^n.charCodeAt(0))];console.log(((-1^t)>>>0).toString(16))`)
+        === crc32(String(i))) console.log(i)
+```
+
+The following program prints `9e89357d`, the same as its hash.
+
+```javascript
+for(t=R=n=o=[];o<=255;n=++o){for(t=0;t<=7;t++)1&n?n=3988292384^n>>>1:n>>>=1;R[o]=n}for(r=[]+1190315716,t=-1,n,e=0;e<r.length;e++)n=r[e],t=t>>>8^R[255&(t^n.charCodeAt(0))];console.log(((-1^t)>>>0).toString(16))
 ```
 
 ### repeating
@@ -468,14 +500,12 @@ https://dev.to/awwsmm/worlds-smallest-quine-guaranteed-b5m
 
 
     additional fun
-        palindromic quine
         collision quine (crc32)
-        ascii art square
-            with bytes
 
         html src=# polyglot PNG / syntax highlight
         self modifying
             befunge
+            aem1k
 
         other references
 
@@ -502,6 +532,10 @@ capjs compression
 
 
 
+
+---
+
+For more complex shapes or images you can write a tool to squirt code onto a textfile containing a mask of the image
 
     LISP
     perl
