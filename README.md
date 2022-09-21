@@ -10,8 +10,9 @@
 * [additional fun](#additional-fun)
     * [expressions](#expressions)
     * [ascii art](#ascii-art)
-    * [error](#error)
+    * [HTML](#HTML)
     * [collision](#collision)
+    * [error](#error)
     * [repeating](#repeating)
     * [cheating](#cheating)
 
@@ -373,29 +374,23 @@ You can do this without fancy string introspection too;
 
 A rough circle, made by using the midpoint circle algorithm to draw the bytes which contain the code that is manually arranged.
 
-### error
+### HTML
 
-There's a kind of ["quine"](#cheating) that abuses interpreter errors and warnings.
+the shortest HTML quine I can think of is 
 
-If I put the following into v8, I get the same output back; 
-
-```
-> Uncaught SyntaxError: Unexpected identifier
-Uncaught SyntaxError: Unexpected identifier
+```html
+<pre id="Q"><svg onload="Q.textContent=document.body.innerHTML"></svg></pre>
 ```
 
-These quines can be easily found with some iterative copying in a shell or some other REPL: 
+the quotes and closing tags are both required :(
 
-```zsh
-% asf
-zsh: command not found: asf
+---
 
-% zsh: command not found: asf
-zsh: command not found: zsh:
+![](./examples/syntax.png)
 
-% zsh: command not found: zsh:
-zsh: command not found: zsh:
-```
+https://gist.github.com/tlack/3039247
+http://www.p01.org/fluid_simulation_quine/quine.html
+
 
 ### collision
 
@@ -426,6 +421,30 @@ The following program prints `9e89357d`, the same as its hash.
 
 ```javascript
 for(t=R=n=o=[];o<=255;n=++o){for(t=0;t<=7;t++)1&n?n=3988292384^n>>>1:n>>>=1;R[o]=n}for(r=[]+1190315716,t=-1,n,e=0;e<r.length;e++)n=r[e],t=t>>>8^R[255&(t^n.charCodeAt(0))];console.log(((-1^t)>>>0).toString(16))
+```
+
+### error
+
+There's a kind of ["quine"](#cheating) that abuses interpreter errors and warnings.
+
+If I put the following into v8, I get the same output back; 
+
+```
+> Uncaught SyntaxError: Unexpected identifier
+Uncaught SyntaxError: Unexpected identifier
+```
+
+These quines can be easily found with some iterative copying in a shell or some other REPL: 
+
+```zsh
+% asf
+zsh: command not found: asf
+
+% zsh: command not found: asf
+zsh: command not found: zsh:
+
+% zsh: command not found: zsh:
+zsh: command not found: zsh:
 ```
 
 ### repeating
@@ -495,12 +514,12 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 
 // get aditsu to proofread
 
+// update website
 
 https://dev.to/awwsmm/worlds-smallest-quine-guaranteed-b5m
 
 
     additional fun
-        collision quine (crc32)
 
         html src=# polyglot PNG / syntax highlight
         self modifying
