@@ -376,27 +376,31 @@ A rough circle, made by using the midpoint circle algorithm to draw the bytes wh
 
 ### HTML
 
-the shortest HTML quine I can think of is 
+The shortest HTML quine I can think of is 
 
 ```html
 <pre id="Q"><svg onload="Q.textContent=document.body.innerHTML"></svg></pre>
 ```
 
-the quotes and closing tags are both required :(
+Quotes and closing tags are both required :(
 
 ---
 
-this next quine includes some basic syntax highlighting
+This next quine includes some basic syntax highlighting
 
 ![](./examples/syntax.png)
 
+As a HTML page, the first bit of code is just treated as page body text content. 
 
+Eventually the parser hits a `<script` tag with `src=#`. Where `#` points to the document itself. *
 
+So it reruns the same file as JavaScript which renders the quine to the the page, replacing the original content.
 
+<sub>* I've seen this same trick used in some demoscene work with [PNG](http://www.p01.org/matraka/matraka.png.html)</sub>
 
+---
 
-https://gist.github.com/tlack/3039247
-http://www.p01.org/fluid_simulation_quine/quine.html
+I should also mention the [Fluid Simulation Quine](http://www.p01.org/fluid_simulation_quine/)
 
 ### collision
 
