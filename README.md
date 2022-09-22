@@ -211,7 +211,7 @@ m:=[32, 112, 114, 105, 110, 116, 40, 39, 109, 58, 61, 39, 43, 109, 46, 115, 116,
 print('m:='+m.str())for b in m{print(string([b]))}
 ```
 
-<sub>(In C, you could imagine using `char[]` instead of `int[]` for the data and printing the string all at once without looping. In vlang, `string` seems to truncate to 1 character, even though it takes an array, so you end up with this weird `string([b])` loop thing)</sub>
+<sub>(In C, you could imagine using `char[]` instead of `int[]` for the data and printing the string all at once without looping. In vlang, `string` seems to truncate to 1 character, even though it takes an array, so you end up with this `string([b])` loop thing)</sub>
 
 
 ---
@@ -374,6 +374,8 @@ You can do this without fancy string introspection too;
 
 A rough circle, made by using the midpoint circle algorithm to draw the bytes which contain the code that is manually arranged.
 
+For more complex shapes or images you can write a tool to squirt code onto a textfile containing a mask of the image, like in the glorious [quine-relay](https://github.com/mame/quine-relay).
+
 ### HTML
 
 The shortest HTML quine I can think of is 
@@ -400,7 +402,7 @@ So it reruns the same file as JavaScript which renders the quine to the the page
 
 ---
 
-I should also mention the [Fluid Simulation Quine](http://www.p01.org/fluid_simulation_quine/)
+I should also mention [Fluid Simulation Quine](http://www.p01.org/fluid_simulation_quine/) and [Hello World 1K](http://aem1k.com/world/)
 
 ### collision
 
@@ -529,12 +531,45 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 https://dev.to/awwsmm/worlds-smallest-quine-guaranteed-b5m
 
 
+## idk
+
+cheaty palindromic quine
+
+```javascript
+(q=u=>(i=`(q=${q},q())`,i+' // '+[...i].reverse().join``),q()) // ))(q,)``nioj.)(esrever.]i...[+' // '+i,`))(q,}q{$=q(`=i(>=u=q(
+```
+
+
+
+
+print!("{},{0:?}","print!(\"{},{0:?}\"")
+
+
+befunge quine that just uses `g` to read from fungespace in a loop
+
+```befunge
+0>:# 0# \# g# ,# 1# +# <
+```
+
+you can run it [in this interpreter](http://qiao.github.io/javascript-playground/visual-befunge93-interpreter/) 
+
+---
+
+terrible rust quine
+
+```rust
+fn main(){let q=r###"println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}"###;
+println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}
+```
+
+```rust
+format!("{},{0:?})","format!(\"{},{0:?})\"")
+```
+
+
+
     additional fun
 
-        html src=# polyglot PNG / syntax highlight
-        self modifying
-            befunge
-            aem1k
 https://esolangs.org/wiki/Polyglot
 
         other references
@@ -548,22 +583,6 @@ https://esolangs.org/wiki/Polyglot
         asem1k world -> one of the first, describe how it works
         relay -> author wrote a book explaining it in detail, if you can read japanese
 
-    storing data vs reflection
-
-
-eval([void null] + new function() {})
-void
-
-IOCCC empty file
-
-The data doesnt even have to be bytes, it can be anything.
-
-capjs compression
-
-
-
-
----
 
 For more complex shapes or images you can write a tool to squirt code onto a textfile containing a mask of the image
 
