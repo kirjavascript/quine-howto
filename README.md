@@ -386,11 +386,17 @@ the quotes and closing tags are both required :(
 
 ---
 
+this next quine includes some basic syntax highlighting
+
 ![](./examples/syntax.png)
+
+
+
+
+
 
 https://gist.github.com/tlack/3039247
 http://www.p01.org/fluid_simulation_quine/quine.html
-
 
 ### collision
 
@@ -525,6 +531,7 @@ https://dev.to/awwsmm/worlds-smallest-quine-guaranteed-b5m
         self modifying
             befunge
             aem1k
+https://esolangs.org/wiki/Polyglot
 
         other references
 
