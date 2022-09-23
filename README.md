@@ -10,7 +10,7 @@
 * [additional fun](#additional-fun)
     * [expressions](#expressions)
     * [ascii art](#ascii-art)
-    * [HTML](#HTML)
+    * [HTML](#html)
     * [collision](#collision)
     * [error](#error)
     * [repeating](#repeating)
@@ -591,26 +591,11 @@ For more complex shapes or images you can write a tool to squirt code onto a tex
 
 absolute chaos
 
-fn main(){let q=r###"println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}"###;
-println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}
-
 101 hello worlds thing
 
-
-palidromic quine
-(q=u=>(i=`(q=${q},q())`,i+' // '+[...i].reverse().join``),q()) // ))(q,)``nioj.)(esrever.]i...[+' // '+i,`))(q,}q{$=q(`=i(>=u=q(
-    ambigram quine
-
-oruborus quine
-square
 
     https://www.perlmonks.com/?node_id=835076
     https://www.perlmonks.com/?node_id=765005
 
     IOCCC quine blank
 
-
-Collision quine (link SHA-1)
-```javascript
-for(t=R=n=o=[];o<=255;n=++o){for(t=0;t<=7;t++)1&n?n=3988292384^n>>>1:n>>>=1;R[o]=n}for(r=[]+1190315716,t=-1,n,e=0;e<r.length;e++)n=r[e],t=t>>>8^R[255&(t^n.charCodeAt(0))];console.log(((-1^t)>>>0).toString(16))
-```
