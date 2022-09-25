@@ -15,6 +15,7 @@
     * [error](#error)
     * [repeating](#repeating)
     * [cheating](#cheating)
+    * [links](#links)
 
 ## intro
 
@@ -61,7 +62,7 @@ More boilerplate is required to glimpse behind the curtain and grab the code, bu
 
 We'll find a shorter Python quine later.
 
-While these quines are easy to make and understand, the functionality to achieve them isn't common to most programming languages. When it's absent, we have to do something else.
+While these quines are easy to make and understand, the functionality to achieve them isn't common to most programming languages. They're also a bit [dubious] When it's absent, we have to do something else.
 
 ### string encoding
 
@@ -404,6 +405,8 @@ So it reruns the same file as JavaScript which renders the quine to the the page
 
 I should also mention [Fluid Simulation Quine](http://www.p01.org/fluid_simulation_quine/) and [Hello World 1K](http://aem1k.com/world/)
 
+For a pure HTML+CSS quine, there's the [brutalist HTML quine](https://secretgeek.github.io/html_wysiwyg/html.html)
+
 ### collision
 
 A crc32 generator that generates a crc32 that matches the crc32 of its source
@@ -411,14 +414,14 @@ A crc32 generator that generates a crc32 that matches the crc32 of its source
 First we code golf up a crc32 routine
 
 ```javascript
- for (t = R = n = o = []; o <= 255; n = ++o) {
-     for (t = 0; t <= 7; t++)
-         1 & n ? (n = 3988292384 ^ (n >>> 1)) : (n >>>= 1);
-     R[o]=n;
- }
- for (r = []+1151661577, t = -1, n, e = 0; e < r.length; e++)
-     (n = r[e]), (t = (t >>> 8) ^ R[255 & (t ^ n.charCodeAt(0))]);
- ((-1 ^ t) >>> 0).toString(16);
+for (t = R = n = o = []; o <= 255; n = ++o) {
+    for (t = 0; t <= 7; t++)
+        1 & n ? (n = 3988292384 ^ (n >>> 1)) : (n >>>= 1);
+    R[o]=n;
+}
+for (r = []+1151661577, t = -1, n, e = 0; e < r.length; e++)
+    (n = r[e]), (t = (t >>> 8) ^ R[255 & (t ^ n.charCodeAt(0))]);
+((-1 ^ t) >>> 0).toString(16);
 ```
 
 The lowercase `r` is the input data. Some brute force will reveal a collision with the crc32 of the source
@@ -515,6 +518,16 @@ Trivial expressions like `0` are also kinda cheaty.
 
 If you're going to cheat, the best approach is probably [this one](https://raw.githubusercontent.com/c00kiemon5ter/ioccc-obfuscated-c-contest/master/1994/smr.hint).
 
+### links
+
+* http://www.madore.org/~david/computers/quine.html
+* https://cs.lmu.edu/~ray/notes/quineprograms/
+* https://rosettacode.org/wiki/Quine
+* https://esolangs.org/wiki/User:Hakerh400/How_to_write_quines
+* https://twitter.com/quinetweet/status/1309951041321013248
+* https://github.com/Rogdham/gif-md5-hashquine
+* https://retr0.id/notice/ANqlvFZD1eIqjmRiFc
+
 
 ------------------------------------------------------------------
 
@@ -528,9 +541,6 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 
 // update website
 
-https://dev.to/awwsmm/worlds-smallest-quine-guaranteed-b5m
-
-
 ## idk
 
 cheaty palindromic quine
@@ -542,10 +552,7 @@ cheaty palindromic quine
 
 
 
-print!("{},{0:?}","print!(\"{},{0:?}\"")
-
-
-befunge quine that just uses `g` to read from fungespace in a loop
+befunge quine that uses `g` to read from fungespace in a loop
 
 ```befunge
 0>:# 0# \# g# ,# 1# +# <
@@ -555,47 +562,31 @@ you can run it [in this interpreter](http://qiao.github.io/javascript-playground
 
 ---
 
-terrible rust quine
+ugly rust quine
 
 ```rust
 fn main(){let q=r###"println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}"###;
 println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}
 ```
 
+short rust expression quine
+
 ```rust
 format!("{},{0:?})","format!(\"{},{0:?})\"")
+
 ```
 
+or some variant of this, depending on your REPL
 
-
-    additional fun
-
-https://esolangs.org/wiki/Polyglot
-
-        other references
-
-        examples
-        https://rosettacode.org/wiki/Quine
-        https://esolangs.org/wiki/User:Hakerh400/How_to_write_quines
-        http://www.madore.org/~david/computers/quine.html
-        https://cs.lmu.edu/~ray/notes/quineprograms/
-
-        asem1k world -> one of the first, describe how it works
-        relay -> author wrote a book explaining it in detail, if you can read japanese
-
-
-For more complex shapes or images you can write a tool to squirt code onto a textfile containing a mask of the image
+```rust
+print!("{},{0:?});","print!(\"{},{0:?});\"");()
+```
 
     LISP
     perl
 
 absolute chaos
-
 101 hello worlds thing
-
 
     https://www.perlmonks.com/?node_id=835076
     https://www.perlmonks.com/?node_id=765005
-
-    IOCCC quine blank
-
