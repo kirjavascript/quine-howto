@@ -527,9 +527,11 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 * https://twitter.com/quinetweet/status/1309951041321013248
 * https://github.com/Rogdham/gif-md5-hashquine
 * https://retr0.id/notice/ANqlvFZD1eIqjmRiFc
-
+* https://frankforce.com/disceting-a-dweet-spiral-quine/
 
 ------------------------------------------------------------------
+
+<sub>All quines in this file are my own creation</sub>
 
 <!-- HQ9+ (1 byte) --> 
 
@@ -548,8 +550,6 @@ cheaty palindromic quine
 ```javascript
 (q=u=>(i=`(q=${q},q())`,i+' // '+[...i].reverse().join``),q()) // ))(q,)``nioj.)(esrever.]i...[+' // '+i,`))(q,}q{$=q(`=i(>=u=q(
 ```
-
-
 
 
 befunge quine that uses `g` to read from fungespace in a loop
@@ -573,7 +573,6 @@ short rust expression quine
 
 ```rust
 format!("{},{0:?})","format!(\"{},{0:?})\"")
-
 ```
 
 or some variant of this, depending on your REPL
