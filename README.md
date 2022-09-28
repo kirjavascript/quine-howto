@@ -583,3 +583,4 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 * https://github.com/Rogdham/gif-md5-hashquine
 * https://retr0.id/notice/ANqlvFZD1eIqjmRiFc
 * https://frankforce.com/disceting-a-dweet-spiral-quine/
+* https://codegolf.stackexchange.com/questions/115537/tips-for-writing-quines
