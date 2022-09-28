@@ -493,10 +493,20 @@ We end up with this beautiful repeating quine;
 (d => (d = d + unescape('%60')) + d)`(d => (d = d + unescape('%60')) + d)`
 ```
 
-This same quine in the esolang [CJam](https://sourceforge.net/projects/cjam/) is;
+---
+
+We can make a repeating quine in the stack based language [CJam](https://sourceforge.net/projects/cjam/)
 
 ```cjam
 "`_~"`_~
+```
+
+Where `` ` `` is our `addQuotes()` function, `_` is duplicate and `~` is eval
+
+In pseudocode;
+
+```
+print((x=addQuotes("`_~"))+eval(x))
 ```
 
 ## misc
@@ -565,6 +575,7 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 ### links
 
 * http://www.madore.org/~david/computers/quine.html
+* https://www.nyx.net/~gthompso/quine.htm
 * https://cs.lmu.edu/~ray/notes/quineprograms/
 * https://rosettacode.org/wiki/Quine
 * https://esolangs.org/wiki/User:Hakerh400/How_to_write_quines
