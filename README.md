@@ -202,7 +202,7 @@ int main() {
 }
 ```
 
-If you squint you may be able to see that this is very similar to our string-based examples, except we're using bytes to represent character codes. We are still printing the data in two ways; to represent the collection of bytes, and to represent the code itself.
+If you squint you may be able to see that this is very similar to our string encoding examples, except we're using bytes to represent character codes. We are still printing the data in two ways; to represent the collection of bytes, and to represent the code itself.
 
 This is about as simple as we can get; just some bytes, loops, and printing. It should start to become clear how this idea can be applied to any language.
 
@@ -541,6 +541,10 @@ print!("{},{0:?});","print!(\"{},{0:?});\"");()
 ---
 
 APL has some [cute quines](https://aplwiki.com/wiki/Quine#Based_on_replicating_quote)
+
+---
+
+[HQ9+](https://esolangs.org/wiki/HQ9%2B) is an esolang where any program containing a `Q` character prints its own source code
 
 ## cheating
 
