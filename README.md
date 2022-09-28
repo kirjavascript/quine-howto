@@ -254,8 +254,6 @@ In the Lua example, we can use `%q` to provide a quoted version of the data to t
 
 ## additional fun
 
-------------------------------------------------------------------
-
 ### expressions
 
 So far we've created quines that are programs that produce output, but expressions can also be shown to exhibit quine-like behaviour.
