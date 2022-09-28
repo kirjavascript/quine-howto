@@ -11,10 +11,11 @@
     * [expressions](#expressions)
     * [ascii art](#ascii-art)
     * [HTML](#html)
-    * [collision](#collision)
+    * [hash](#hash)
     * [error](#error)
     * [repeating](#repeating)
     * [cheating](#cheating)
+    * [misc](#misc)
     * [links](#links)
 
 ## intro
@@ -253,8 +254,6 @@ In the Lua example, we can use `%q` to provide a quoted version of the data to t
 
 ## additional fun
 
-APL has some [cute quines](https://aplwiki.com/wiki/Quine#Based_on_replicating_quote)
-
 ------------------------------------------------------------------
 
 ### expressions
@@ -391,7 +390,7 @@ Quotes and closing tags are both required :(
 
 This next quine includes some basic syntax highlighting
 
-![](./examples/syntax.png)
+![](./syntax.png)
 
 As a HTML page, the first bit of code is just treated as page body text content. 
 
@@ -407,7 +406,7 @@ I should also mention [Fluid Simulation Quine](http://www.p01.org/fluid_simulati
 
 For a pure HTML+CSS quine, there's the [brutalist HTML quine](https://secretgeek.github.io/html_wysiwyg/html.html)
 
-### collision
+### hash
 
 A crc32 generator that generates a crc32 that matches the crc32 of its source
 
@@ -502,48 +501,7 @@ This same quine in the esolang [CJam](https://sourceforge.net/projects/cjam/) is
 "`_~"`_~
 ```
 
-## cheating
-
-Just reading the source file and printing it seems universally considered cheating.
-
-```Rust
-fn main() {
-    println!("{}", include_str!("main.rs"));
-}
-```
-
-This can include indirect access of parts of the source, like some of the early examples in this file.
-
-Trivial expressions like `0` are also kinda cheaty.
-
-If you're going to cheat, the best approach is probably [this one](https://raw.githubusercontent.com/c00kiemon5ter/ioccc-obfuscated-c-contest/master/1994/smr.hint).
-
-### links
-
-* http://www.madore.org/~david/computers/quine.html
-* https://cs.lmu.edu/~ray/notes/quineprograms/
-* https://rosettacode.org/wiki/Quine
-* https://esolangs.org/wiki/User:Hakerh400/How_to_write_quines
-* https://twitter.com/quinetweet/status/1309951041321013248
-* https://github.com/Rogdham/gif-md5-hashquine
-* https://retr0.id/notice/ANqlvFZD1eIqjmRiFc
-* https://frankforce.com/disceting-a-dweet-spiral-quine/
-
-------------------------------------------------------------------
-
-<sub>All quines in this file are my own creation</sub>
-
-<!-- HQ9+ (1 byte) --> 
-
-
-
-------------------------------------------------------------------
-
-// get aditsu to proofread
-
-// update website
-
-## idk
+## misc
 
 cheaty palindromic quine
 
@@ -551,6 +509,7 @@ cheaty palindromic quine
 (q=u=>(i=`(q=${q},q())`,i+' // '+[...i].reverse().join``),q()) // ))(q,)``nioj.)(esrever.]i...[+' // '+i,`))(q,}q{$=q(`=i(>=u=q(
 ```
 
+---
 
 befunge quine that uses `g` to read from fungespace in a loop
 
@@ -581,11 +540,37 @@ or some variant of this, depending on your REPL
 print!("{},{0:?});","print!(\"{},{0:?});\"");()
 ```
 
-    LISP
-    perl
+---
 
-absolute chaos
-101 hello worlds thing
+APL has some [cute quines](https://aplwiki.com/wiki/Quine#Based_on_replicating_quote)
 
-    https://www.perlmonks.com/?node_id=835076
-    https://www.perlmonks.com/?node_id=765005
+## cheating
+
+Just reading the source file and printing it seems universally considered cheating.
+
+```Rust
+fn main() {
+    println!("{}", include_str!("main.rs"));
+}
+```
+
+This can include indirect access of parts of the source, like some of the early examples in this file.
+
+Trivial expressions like `0` are also kinda cheaty.
+
+If you're going to cheat, the best approach is probably [this one](https://raw.githubusercontent.com/c00kiemon5ter/ioccc-obfuscated-c-contest/master/1994/smr.hint).
+
+### links
+
+* http://www.madore.org/~david/computers/quine.html
+* https://cs.lmu.edu/~ray/notes/quineprograms/
+* https://rosettacode.org/wiki/Quine
+* https://esolangs.org/wiki/User:Hakerh400/How_to_write_quines
+* https://twitter.com/quinetweet/status/1309951041321013248
+* https://github.com/Rogdham/gif-md5-hashquine
+* https://retr0.id/notice/ANqlvFZD1eIqjmRiFc
+* https://frankforce.com/disceting-a-dweet-spiral-quine/
+
+------------------------------------------------------------------
+
+<sub>All quines in this file are my own creation</sub>
