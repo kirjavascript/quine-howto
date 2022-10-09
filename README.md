@@ -577,6 +577,7 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 * http://www.madore.org/~david/computers/quine.html
 * https://www.nyx.net/~gthompso/quine.htm
 * https://cs.lmu.edu/~ray/notes/quineprograms/
+* https://drcabana.org/quine/
 * https://rosettacode.org/wiki/Quine
 * https://esolangs.org/wiki/User:Hakerh400/How_to_write_quines
 * https://twitter.com/quinetweet/status/1309951041321013248
@@ -584,3 +585,4 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 * https://retr0.id/notice/ANqlvFZD1eIqjmRiFc
 * https://frankforce.com/disceting-a-dweet-spiral-quine/
 * https://codegolf.stackexchange.com/questions/115537/tips-for-writing-quines
+* https://www.youtube.com/watch?v=6K7EmeptEHo
