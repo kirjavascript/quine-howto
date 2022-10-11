@@ -519,6 +519,14 @@ cheaty palindromic quine
 
 ---
 
+short quine-relay that runs through `node` then `python` to then show the original JS code
+
+```JavaScript
+console.log((q=_=>`print(${JSON.stringify(`console.log((q=${q+[]})())`)})`)()
+```
+
+---
+
 befunge quine that uses `g` to read from fungespace in a loop
 
 ```befunge
@@ -528,13 +536,6 @@ befunge quine that uses `g` to read from fungespace in a loop
 you can run it [in this interpreter](http://qiao.github.io/javascript-playground/visual-befunge93-interpreter/) 
 
 ---
-
-ugly rust quine
-
-```rust
-fn main(){let q=r###"println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}"###;
-println!(r##"fn main(){{let q=r#{}#;"##,format!(r#"##{}##"#,format!(r#""{}""#,q)));print!("{}",q);}
-```
 
 short rust expression quine
 
