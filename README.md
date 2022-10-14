@@ -531,7 +531,7 @@ print((x=addQuotes("`_~"))+eval(x))
 
 ## misc
 
-short quine-relay: a JavaScript program that prints a Pythong program that prints the original JavaScript program again
+short quine-relay: a JavaScript program that prints a Python program that prints the original JavaScript program again
 
 ```JavaScript
 console.log((q=_=>`print(${JSON.stringify(`console.log((q=${q+[]})())`)})`)()
