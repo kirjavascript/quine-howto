@@ -324,7 +324,7 @@ quinequinequinequin equinequinequinequi nequinequinequineq      uinequinequinequ
 ```
 
 
-Another trick is to store code in a string that you manipulate and eval later. This allows you to add whitespace anywhere in code you want to and strip it before execution.
+Another less trivial but more powerful trick is to store code in a string that you manipulate and eval later. This allows you to add whitespace anywhere in code you want to and strip it before execution.
 
 ```JavaScript
      eval(s      =`eval(
