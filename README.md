@@ -323,6 +323,26 @@ quinequinequinequin equinequinequinequi nequinequinequineq      uinequinequinequ
               e);q()
 ```
 
+
+Another trick is to store code in a string that you manipulate and eval later. This allows you to add whitespace anywhere in code you want to and strip it before execution.
+
+```JavaScript
+     eval(s      =`eval(
+   s.slice(54  ,300).split
+ (/\\s+/g).join(""))/*[b,S,n
+,L]=String.fromCharCode(96,32
+,10,92);'love is one of the m
+ost wonderful emotions that w
+ e experience';r='repeat';co
+   nsole.log(S[r](5)+'eval
+     (s'+S[r](6)+'='+b+s
+       .replace(L,L+L)
+         +b+n+S[r](1
+           4)+')')
+             */`
+              )
+```
+
 You can do this without fancy string introspection too;
 
 ```rust
@@ -511,15 +531,7 @@ print((x=addQuotes("`_~"))+eval(x))
 
 ## misc
 
-cheaty palindromic quine
-
-```javascript
-(q=u=>(i=`(q=${q},q())`,i+' // '+[...i].reverse().join``),q()) // ))(q,)``nioj.)(esrever.]i...[+' // '+i,`))(q,}q{$=q(`=i(>=u=q(
-```
-
----
-
-short quine-relay that runs through `node` then `python` to then show the original JS code
+short quine-relay: a JavaScript program that prints a Pythong program that prints the original JavaScript program again
 
 ```JavaScript
 console.log((q=_=>`print(${JSON.stringify(`console.log((q=${q+[]})())`)})`)()
@@ -534,6 +546,14 @@ befunge quine that uses `g` to read from fungespace in a loop
 ```
 
 you can run it [in this interpreter](http://qiao.github.io/javascript-playground/visual-befunge93-interpreter/) 
+
+---
+
+cheaty palindromic quine
+
+```javascript
+(q=u=>(i=`(q=${q},q())`,i+' // '+[...i].reverse().join``),q()) // ))(q,)``nioj.)(esrever.]i...[+' // '+i,`))(q,}q{$=q(`=i(>=u=q(
+```
 
 ---
 
