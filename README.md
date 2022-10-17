@@ -465,6 +465,8 @@ for(t=R=n=o=[];o<=255;n=++o){for(t=0;t<=7;t++)1&n?n=3988292384^n>>>1:n>>>=1;R[o]
 
 An IRC bot that connects to a server, joins a channel, prints its own source code, and quits.
 
+Usage: `node quinebot.js irc.libera.chat 6667 #quine`
+
 
 ```JavaScript
 eval((C=`[,,serv,prt,D]=pro           cess.argv,[N,
