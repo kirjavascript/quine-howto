@@ -11,6 +11,7 @@
     * [expressions](#expressions)
     * [ascii art](#ascii-art)
     * [HTML](#html)
+    * [IRC bot](#irc-bot)
     * [hash](#hash)
     * [error](#error)
     * [repeating](#repeating)
@@ -323,12 +324,13 @@ quinequinequinequin equinequinequinequi nequinequinequineq      uinequinequinequ
               e);q()
 ```
 
+---
 
 Another less trivial but more powerful trick is to store code in a string that you manipulate and eval later. This allows you to add whitespace anywhere in code you want to and strip it before execution.
 
 ```JavaScript
      eval(s      =`eval(
-   s.slice(54  ,300).split
+   s.slice(54  ,3e2).split
  (/\\s+/g).join(""))/*[b,S,n
 ,L]=String.fromCharCode(96,32
 ,10,92);'love is one of the m
@@ -342,6 +344,10 @@ ost wonderful emotions that w
              */`
               )
 ```
+
+I explore this idea further in the [IRC bot](#irc-bot) quine
+
+---
 
 You can do this without fancy string introspection too;
 
@@ -454,6 +460,32 @@ The following program prints `9e89357d`, the same as its hash.
 ```javascript
 for(t=R=n=o=[];o<=255;n=++o){for(t=0;t<=7;t++)1&n?n=3988292384^n>>>1:n>>>=1;R[o]=n}for(r=[]+1190315716,t=-1,n,e=0;e<r.length;e++)n=r[e],t=t>>>8^R[255&(t^n.charCodeAt(0))];console.log(((-1^t)>>>0).toString(16))
 ```
+
+### IRC bot
+
+An IRC bot that connects to a server, joins a channel, prints its own source code, and quits.
+
+
+```JavaScript
+eval((C=`[,,serv,prt,D]=pro           cess.argv,[N,
+S,B,Y]=String.fromCharCode(1       0,32,96,92),s=e=
+>e.split("@").join(S),c=requi    re("net").createCo
+nnection(prt,serv)     ,r=e=>c  .write(e+N),c.setEn
+  coding    ("utf8     "),c.ad dListen       er("co
+  nnect"    ,e=>{s     etTimeout(e=>{
+  r(s("N    ICK@quinebot")),r (s("USE
+  R@quin    e@quine@qui@ne@b  ot")),r
+  (s("JO    IN@"+D))},7e3)}), c.addLi
+  stener    ("data     ",e=>{/JOIN/.t
+  est(e)    &&(L=C     .split(N),L[0]
+  ="eval    (C="+B     +L[0],L [L.leng       th-1]+
+=s(B+").split@@@@@     (/"+Y+'  s+/g@@@@@@@@@@).joi
+n(""))'),[...L,0].     forEach   ((e,n)=>{setTimeou
+t(n=>r(e?s("PRIVMS     G@"+D+"     @:")+e:"QUIT"),1
+e3*n)}))})`).split     (/\s+/g          ).join(""))
+```
+
+This is just a 'normal' eval-style quine - except it messages a channel instead of using `console.log`, and uses `fromCharCode` to circumvent escaping anything.
 
 ### error
 
