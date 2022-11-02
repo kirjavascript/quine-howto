@@ -13,6 +13,7 @@
     * [HTML](#html)
     * [hash](#hash)
     * [IRC bot](#irc-bot)
+    * [rubiks cube](#rubiks-cube)
     * [error](#error)
     * [repeating](#repeating)
     * [cheating](#cheating)
@@ -345,8 +346,6 @@ ost wonderful emotions that w
               )
 ```
 
-I explore this idea further in the [IRC bot](#irc-bot) quine
-
 ---
 
 You can do this without fancy string introspection too;
@@ -488,6 +487,47 @@ e3*n)}))})`).split     (/\s+/g          ).join(""))
 ```
 
 This is just a 'normal' eval-style quine - except it messages a channel instead of using `console.log`, and uses `fromCharCode` to circumvent escaping anything.
+
+### rubiks cube
+
+A quine with a fully functional Rubiks Cube at the center.
+
+ANSI escape codes are used to colour the stickers when output.
+
+```JavaScript
+eval((c=`[b,d,p]=($=String.fromCh              arCode)(96,92,32);M=process.argv.s
+lice(2).join('').split(/(\\ww                       ?\\d?'?)/).filter(d=>d.trim()
+);P=[6,3,0,7,4,1,8,5,2];E=                             /./.constructor;C=$(85,70,
+82,66,76,68);s=c.replace                                 (E('[^'+C+']','g'),'');I
+=C+'xyz';u=_=>{s=P.map                                     (d=>s[d]).join('')+s[$
+='slice'](12,21)+s[$]                                       (9,12)+s[$](21)};x=_=
+>{s=[...'ÀÁÂÌÍÎØÙÚ¿Ë                                         ×áâãÛÏÃ¼»º¾ÊÖäåæÜÐÄ¹
+¸·½ÉÕçèéÝÑÅ¶µ´àßÞÔÓ                   UUU                     ÒÈÇÆ'].map(d=>s[d.c
+harCodeAt()-180]).                    UUU                      join('');};y=_=>{s
+=[P.map(d=>s[d]),[                    UUU                      0,12,24].flatMap(_
+=>[[q=12+_,21+_],[                 LLLFFFRRRBBB                9+_,q]]).map(d=>s.
+slice(...d)),[...P                 LLLFFFRRRBBB                ].reverse().map(d=
+>s[d+45])].flat().                 LLLFFFRRRBBB                join('')};z=[x,y,x
+,x,x];X=[x,x,x];m=                    DDD                      [[u],[x,u,X],[y,y,
+y,X,u,x,y],[X,u,x]                    DDD                      ,[z,u,z,z,z],[x,x,
+u,x,x],[x],[y],z,]                    DDD                      ;M.map(d=>{A=_=>m[
+I.indexOf(d[0])].fl                                           at().map(d=>d());A(
+);d[1]=="'"?(A(),A()                                         ):d[1]&&A();});i=0;c
+onsole.log('eval((c='                                       +b+c.replace(E('['+C+
+']','g'),_=>'\\x1b['+[                                     47,42,41,44,45,43][I.i
+ndexOf(s[i])]+'m'+s[i++]                                 +'\\x1b[0m').replaceAll(
+d,d+d)+b+').replace('+p.re                             peat(16)+'/'+d+'x1b'+d+'['
++d+'d+m|'+d+'s+|['+C+']*/g,""                       ))');'rubiks*cube*simulator*q
+uine*by*kirjavascript'`).replace(                /\x1b\[\d+m|\s+|[UFRBLD]*/g,""))
+```
+
+Pass moves as arguments to produce a new quine with the moves applied;
+
+`node qube.js "RUR'URU2R'"`
+
+Since this is a quine, you can continuously pipe the program into itself and apply moves on the way
+
+`node qube.js "R U" | node - "R' U'" | node - "R' F'"`
 
 ### error
 
@@ -641,3 +681,4 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 * https://frankforce.com/disceting-a-dweet-spiral-quine/
 * https://codegolf.stackexchange.com/questions/115537/tips-for-writing-quines
 * https://www.youtube.com/watch?v=6K7EmeptEHo
+* https://twitter.com/tompng/status/1582322388678549504
