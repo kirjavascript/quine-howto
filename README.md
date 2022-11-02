@@ -529,7 +529,7 @@ Since this is a quine, you can continuously pipe the program into itself and app
 
 `node qube.js "R U" | node - "R' U'" | node - "R' F'"`
 
-[See it in action!](https://www.youtube.com/watch?v=OPM49mhgmk0)
+[See it in action](https://www.youtube.com/watch?v=OPM49mhgmk0)
 
 ### error
 
