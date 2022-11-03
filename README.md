@@ -682,5 +682,6 @@ If you're going to cheat, the best approach is probably [this one](https://raw.g
 * https://retr0.id/notice/ANqlvFZD1eIqjmRiFc
 * https://frankforce.com/disceting-a-dweet-spiral-quine/
 * https://codegolf.stackexchange.com/questions/115537/tips-for-writing-quines
-* https://www.youtube.com/watch?v=6K7EmeptEHo
 * https://twitter.com/tompng/status/1582322388678549504
+* https://www.youtube.com/watch?v=6K7EmeptEHo
+* https://www.amazon.co.jp/dp/4774176435
