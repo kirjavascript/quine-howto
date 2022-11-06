@@ -495,30 +495,30 @@ A quine with a fully functional Rubiks Cube at the center.
 ANSI escape codes are used to colour the stickers when output.
 
 ```JavaScript
-eval((c=`[b,d,p]=($=String.fromCh              arCode)(96,92,32);M=process.argv.s
-lice(2).join('').split(/(\\ww                       ?\\d?'?)/).filter(d=>d.trim()
-);P=[6,3,0,7,4,1,8,5,2];E=                             /./.constructor;C=$(85,70,
-82,66,76,68);s=c.replace                                 (E('[^'+C+']','g'),'');I
-=C+'xyz';u=_=>{s=P.map                                     (d=>s[d]).join('')+s[$
-='slice'](12,21)+s[$]                                       (9,12)+s[$](21)};x=_=
->{s=[...'ÀÁÂÌÍÎØÙÚ¿Ë                                         ×áâãÛÏÃ¼»º¾ÊÖäåæÜÐÄ¹
-¸·½ÉÕçèéÝÑÅ¶µ´àßÞÔÓ                   UUU                     ÒÈÇÆ'].map(d=>s[d.c
-harCodeAt()-180]).                    UUU                      join('');};y=_=>{s
-=[P.map(d=>s[d]),[                    UUU                      0,12,24].flatMap(_
-=>[[q=12+_,21+_],[                 LLLFFFRRRBBB                9+_,q]]).map(d=>s.
-slice(...d)),[...P                 LLLFFFRRRBBB                ].reverse().map(d=
->s[d+45])].flat().                 LLLFFFRRRBBB                join('')};z=[x,y,x
-,x,x];X=[x,x,x];m=                    DDD                      [[u],[x,u,X],[y,y,
-y,X,u,x,y],[X,u,x]                    DDD                      ,[z,u,z,z,z],[x,x,
-u,x,x],[x],[y],z,]                    DDD                      ;M.map(d=>{A=_=>m[
-I.indexOf(d[0])].fl                                           at().map(d=>d());A(
-);d[1]=="'"?(A(),A()                                         ):d[1]&&A();});i=0;c
-onsole.log('eval((c='                                       +b+c.replace(E('['+C+
-']','g'),_=>'\\x1b['+[                                     47,42,41,44,45,43][I.i
-ndexOf(s[i])]+'m'+s[i++]                                 +'\\x1b[0m').replaceAll(
-d,d+d)+b+').replace('+p.re                             peat(16)+'/'+d+'x1b'+d+'['
-+d+'d+m|'+d+'s+|['+C+']*/g,""                       ))');'rubiks*cube*simulator*q
-uine*by*kirjavascript'`).replace(                /\x1b\[\d+m|\s+|[UFRBLD]*/g,""))
+eval((c=`[b,d,p]=($=String.fromCh              arCode)(96,92,32);M=process.argv[S
+='slice'](2).join(W='').split                       (/(\\ww?\\d?'?)/).filter(d=>d
+.trim());P=[6,3,0,7,4,1,8,                             5,2];E=/./.constructor;C=$
+(85,70,82,66,76,68);s=c.                                 replace(E('[^'+C+']','g'
+),W);I=C+'xyz';u=_=>{s                                     =P.map(d=>s[d]).join(W
+)+s[S](12,21)+s[S](9,                                       12)+s[S](21)};y=_=>{s
+=[P.map(d=>s[d]),[0,                                         12,24].flatMap(_=>[[
+q=12+_,21+_],[9+_,q                   UUU                     ]]).map(d=>s[S](...
+d)),[...P].reverse                    UUU                      ().map(d=>s[d+45])
+].flat().join(W)};                    UUU                      x=_=>{s=[...'ÀÁÂÌÍ
+ÎØÙÚ¿Ë×áâãÛÏÃ¼»º¾Ê                 LLLFFFRRRBBB                ÖäåæÜÐÄ¹¸·½ÉÕçèéÝÑ
+Å¶µ´àßÞÔÓÒÈÇÆ'].ma                 LLLFFFRRRBBB                p(d=>s[d.charCodeA
+t()-180]).join(W)}                 LLLFFFRRRBBB                ;z=[x,y,x,x,x];X=[
+x,x,x];m=[[u],[x,u                    DDD                      ,X],[y,y,y,X,u,x,y
+],[X,u,x],[z,u,z,z                    DDD                      ,z],[x,x,u,x,x],[x
+],[y],z];M.map(d=>                    DDD                      {A=_=>m[I.indexOf(
+d[0])].flat().map(d                                           =>d());A();d[1]=="'
+"?(A(),A()):d[1]&&A(                                         )});i=0;console.log(
+'eval((c='+b+c.replac                                       e(/\\x1b\\[\\d+m/g,''
+).replace(E('['+C+']',                                     'g'),_=>'\\x1b['+[47,4
+2,41,44,45,43][I.indexOf                                 (s[i])]+'m'+s[i++]+'\\x1
+b[0m').replaceAll(d,d+d)+b                             +').replace('+p.repeat(16)
++'/'+d+'x1b'+d+'['+d+'d+m|'+d                       +'s+|['+C+']*/g,""))');'3x3x3
+*simulator*by*kirjava'`).replace(                /\x1b\[\d+m|\s+|[UFRBLD]*/g,""))
 ```
 
 Pass moves as arguments to produce a new quine with the moves applied;
