@@ -517,8 +517,8 @@ d[0])].flat().map(d                                           =>d());A();d[1]=="
 ).replace(E('['+C+']',                                     'g'),_=>'\\x1b['+[47,4
 2,41,44,45,43][I.indexOf                                 (s[i])]+'m'+s[i++]+'\\x1
 b[0m').replaceAll(d,d+d)+b                             +').replace('+p.repeat(16)
-+'/'+d+'x1b'+d+'['+d+'d+m|'+d                       +'s+|['+C+']*/g,""))');'3x3x3
-*simulator*by*kirjava'`).replace(                /\x1b\[\d+m|\s+|[UFRBLD]*/g,""))
++'/'+d+'x1b'+d+'['+d+'d+m|'+d                       +'s+|['+C+']*/g,""))');/3x3x3
+*simulator*by*kirjava/`).replace(                /\x1b\[\d+m|\s+|[UFRBLD]*/g,""))
 ```
 
 Pass moves as arguments to produce a new quine with the moves applied;
