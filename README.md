@@ -65,7 +65,7 @@ More boilerplate is required to glimpse behind the curtain and grab the code, bu
 
 We'll find a shorter Python quine later.
 
-While these quines are easy to make and understand, the functionality to achieve them isn't common to most programming languages. They're also a bit [dubious] When it's absent, we have to do something else.
+While these quines are easy to make and understand, the functionality to achieve them isn't common to most programming languages (they're also a bit [dubious](#cheating)). When it's absent, we have to do something else.
 
 ### string encoding
 
