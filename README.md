@@ -633,6 +633,12 @@ cheaty palindromic quine
 
 ---
 
+chatGPT
+
+![](./chatGPT.png)
+
+---
+
 short rust expression quine
 
 ```rust
