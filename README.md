@@ -413,7 +413,7 @@ Quotes and closing tags are both required :(
 
 This next quine includes some basic syntax highlighting
 
-![](./syntax.png)
+![](./images/syntax.png)
 
 As a HTML page, the first bit of code is just treated as page body text content. 
 
@@ -635,7 +635,7 @@ cheaty palindromic quine
 
 chatGPT
 
-![](./chatGPT.png)
+![](./images/chatGPT.png)
 
 ---
 
