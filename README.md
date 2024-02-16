@@ -669,6 +669,16 @@ cheaty palindromic quine
 
 ---
 
+upside down "quine"
+
+```javascript
+(o=(Z="()[]<>⌄^Ɩ1nueǝrɹvʌmɯaɐjɾiᴉfɟpd\"⹂˙.")=>[..."(o="+o+")()"].reverse().map(s=>Z[Z.indexOf(s)^1]||s).join(""))()
+```
+
+prints: `()((⹂⹂)uᴉoɾ˙(s||[Ɩ⌄(s)ɟOxǝpuᴉ˙Z]Z<=s)dɐɯ˙()ǝsɹǝʌǝɹ˙[⹂()(⹂+o+⹂=o)⹂˙˙˙]<=(⹂˙."⹂\\pdfɟiᴉjɾaɐmɯvʌrɹeǝnuƖ1⌄^<>[]()⹂=Z)=o)`
+
+---
+
 chatGPT
 
 ![](./images/chatGPT.png)
