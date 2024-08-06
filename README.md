@@ -560,35 +560,14 @@ zsh: command not found: zsh:
 
 A polyglot is source code that works in multiple programming languages.
 
-Here's a polyglot quine in Rust/HTML;
+Here's a polyglot quine in Rust/JS;
 
 ```
-const D: &str = r#"
-    a polyglot quine in rust and HTML
-
-    <svg onload="b=document.body;d=b.innerHTML.replace(/a(m)p;/g,[]);b.innerHTML='<pre id=q>';q.innerText=d.slice(![],(_=-~-~-~[],-_*(_+_+!![])))">
-        <path d="M34,35L59,10L10,102L110,32L109,97L105,110L40,41L32,123L10,32L32,32L32,112L114,105L110,116L108,110L33,40L10,32L32,32L32,32L32,32L32,34
-                 L99,111L110,115L116,32L95,58L32,38L115,116L114,32L61,32L114,35L92,34L123,125L123,125L34,44L32,68L44,32L68,46L99,104L97,114L115,40
-                 L41,46L102,111L108,100L40,40L86,101L99,58L58,60L99,104L97,114L62,58L58,110L101,119L40,41L44,32L83,116L114,105L110,103L58,58L110,101
-                 L119,40L41,41L44,32L124,40L109,117L116,32L114,101L115,117L108,116L44,32L109,117L116,32L99,117L114,114L101,110L116,41L44,32L99,124
-                 L32,123L10,32L32,32L32,32L32,32L32,32L32,32L32,105L102,32L99,46L105,115L95,100L105,103L105,116L40,49L48,41L32,123L32,99L117,114
-                 L114,101L110,116L46,112L117,115L104,40L99,41L59,32L125,10L32,32L32,32L32,32L32,32L32,32L32,32L101,108L115,101L32,105L102,32L33,99
-                 L117,114L114,101L110,116L46,105L115,95L101,109L112,116L121,40L41,32L123,32L114,101L115,117L108,116L46,112L117,115L104,40L99,117
-                 L114,114L101,110L116,46L112,97L114,115L101,58L58,60L117,56L62,40L41,46L117,110L119,114L97,112L40,41L32,97L115,32L99,104L97,114L41,59
-                 L32,99L117,114L114,101L110,116L46,99L108,101L97,114L40,41L59,32L125,32L40,114L101,115L117,108L116,44L32,99L117,114L114,101L110,116
-                 L41,10L32,32L32,32L32,32L32,32L125,41L46,48L46,105L110,116L111,95L105,116L101,114L40,41L46,99L111,108L108,101L99,116L58,58L60,83
-                 L116,114L105,110L103,62L40,41L10,32L32,32L32,41L59,10Z125"></path>
-    </svg>
-"#;
-
-fn main() {
-    println!(
-        "const D: &str = r#\"{}{}", D, D.chars().fold((Vec::<char>::new(), String::new()), |(mut result, mut current), c| {
-            if c.is_digit(10) { current.push(c); }
-            else if !current.is_empty() { result.push(current.parse::<u8>().unwrap() as char); current.clear(); } (result, current)
-        }).0.into_iter().collect::<String>()
-    );
-}
+/*/**/t=`*/
+fn main(){println!("/*/**/t={}*/{1}fn main(){{println!({3:?},{1}96 as char,10 as char,34 as char,{1}{3:?});}}{1}const J:&str=r#{2}{J}{2}#;",
+96 as char,10 as char,34 as char,
+"/*/**/t={}*/{1}fn main(){{println!({3:?},{1}96 as char,10 as char,34 as char,{1}{3:?});}}{1}const J:&str=r#{2}{J}{2}#;");}
+const J:&str=r#"//`;eval(u=`b=String.fromCharCode(96);console.log('/*/**/t='+b+t+b+';eval(u='+b+u+b+')'+'//"'+'#;')`)//"#;
 ```
 
 ### repeating
