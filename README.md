@@ -245,8 +245,6 @@ In C we can pass `34` as a format argument to get quotes.
 char *q = "char *q = %c%s%c; int main() { printf(q, 34, q, 34); }"; int main() { printf(q, 34, q, 34); }
 ```
 
----
-
 In languages that don't have a string format function, we can still write our own.
 
 ```javascript
