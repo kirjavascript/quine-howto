@@ -5,6 +5,7 @@
     * [syntax access](#syntax-access)
     * [string encoding](#string-encoding)
         * [more string encoding](#more-string-encoding)
+    * [string formatting](#string-formatting)
     * [bytes](#bytes)
     * [eval](#eval)
 * [additional fun](#additional-fun)
@@ -180,6 +181,92 @@ console.log('data = "' + data + unescape(escape(data).replace(/u../g,'')))
 <sub>(You may have noticed the structure change to `data = ""; print('data = "' . data  . convert(data))` in the last few examples. Everything that comes after the data string can be encoded inside it, including the quote that follows it)</sub>
 
 
+### string formatting
+
+String formatters can provide various tricks for writing quines.
+
+Instead of having a piece of data we use two different ways, we're going to repeat the data twice and use it first as the format string, and then as the arguments being passed to the formatter.
+
+The string we use contains all the code except the strings themselves, which are substituted with format specifiers.
+
+Lets first look at Python's formatter.
+
+
+```python
+print("".format(repr("")))
+```
+
+We use `repr` because we want the strings we provide to be quoted.
+
+Because we substitute the strings with format specifiers, we can see that the content of the string would be as follows:
+
+```
+print({0}.format(repr({0}))
+```
+
+Putting it all together, we get:
+
+```python
+print("print({0}.format(repr({0})))".format(repr("print({0}.format(repr({0})))")))
+```
+
+This trick works because the format specifiers are ignored when the string is passed as a parameter.
+
+
+The exact same example in Rust looks like:
+
+```Rust
+fn main(){println!("fn main(){{println!({:?},{0:?});}}","fn main(){{println!({:?},{0:?});}}");}
+```
+
+With this approach, you end up with the effect of the code being repeated three times.
+
+It also allows us to write quines without declaring any variables.
+
+---
+
+Earlier, we mentioned how you can use `%q` in Lua's string formatter to quote strings. 
+
+While this is useful, Lua doesnt support positional arguments for its format strings. We can work around this by using a variable and repeating what is formatted.
+
+```lua
+d="d=%q;print(string.format(%q,d,d))";print(string.format("d=%q;print(string.format(%q,d,d))",d,d))
+```
+
+If we take this idea further, we can reduce the duplication to only a single time.
+
+```lua
+d="d=%q;print(string.format(d,d,d))";print(string.format(d,d,d))
+```
+
+In C we can pass `34` as a format argument to get quotes.
+
+```C
+char *q = "char *q = %c%s%c; int main() { printf(q, 34, q, 34); }"; int main() { printf(q, 34, q, 34); }
+```
+
+---
+
+In languages that don't have a string format function, we can still write our own.
+
+```javascript
+f=(s,a)=>s.replaceAll('%',JSON.stringify(a));
+```
+
+If the above function existed in JavaScript, we could just write:
+
+```javascript
+console.log(f("console.log(f(%,%))","console.log(f(%,%))"))
+```
+
+Which is the same pattern from before. To make it self contained, we can just spam the function in.
+
+Before we add it though, we have to replace the `%` character, otherwise it will be substituted by our formatter.
+
+```javascript
+f=(s,a)=>s.replaceAll(String.fromCharCode(37),JSON.stringify(a));
+console.log(f("f=(s,a)=>s.replaceAll(String.fromCharCode(37),JSON.stringify(a));\nconsole.log(f(%,%))","f=(s,a)=>s.replaceAll(String.fromCharCode(37),JSON.stringify(a));\nconsole.log(f(%,%))"))
+```
 ### bytes
 
 Most of the examples so far have leaned on high level string methods, but the data can really be anything as long as there's a way to output it.
@@ -661,20 +748,6 @@ prints: `()((⹂⹂)uᴉoɾ˙(s||[Ɩ⌄(s)ɟOxǝpuᴉ˙Z]Z<=s)dɐɯ˙()ǝsɹǝʌ
 chatGPT
 
 ![](./images/chatGPT.png)
-
----
-
-short rust expression quine
-
-```rust
-format!("{},{0:?})","format!(\"{},{0:?})\"")
-```
-
-or some variant of this, depending on your REPL
-
-```rust
-print!("{},{0:?});","print!(\"{},{0:?});\"");()
-```
 
 ---
 
