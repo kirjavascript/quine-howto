@@ -225,9 +225,7 @@ It also allows us to write quines without declaring any variables.
 
 ---
 
-Earlier, we mentioned how you can use `%q` in Lua's string formatter to quote strings. 
-
-While this is useful, Lua doesnt support positional arguments for its format strings. We can work around this by using a variable and repeating what is formatted.
+Lua doesnt support positional arguments for its format strings. We can work around this by using a variable and repeating what is formatted.
 
 ```lua
 d="d=%q;print(string.format(%q,d,d))";print(string.format("d=%q;print(string.format(%q,d,d))",d,d))
