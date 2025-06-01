@@ -237,6 +237,12 @@ If we take this idea further, we can reduce the duplication to only a single tim
 d="d=%q;print(string.format(d,d,d))";print(string.format(d,d,d))
 ```
 
+Changing this to a method call gives us this very short example:
+
+```lua
+d="d=%qprint(d:format(d))"print(d:format(d))
+```
+
 In C we can pass `34` as a format argument to get quotes.
 
 ```C
@@ -337,6 +343,12 @@ data="print(string.format('data=%q load(data)()',data))" load(data)()
 ```
 
 In the Lua example, we can use `%q` to provide a quoted version of the data to the string formatter.
+
+Another way to work around this is to use the multi line `[[` string delimiter.
+
+```lua
+d=[[print('d=[['..d..']'..']load(d)()')]]load(d)()
+```
 
 ## additional fun
 
